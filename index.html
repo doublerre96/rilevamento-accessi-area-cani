@@ -7,11 +7,14 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
         
-        /* SFONDO CARTONE ANIMATO E OVERLAY VIOLA/LILLA */
+        /* SFONDO DINAMICO CON CAMBIO RAZZA CANE */
         body { 
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(56, 189, 248, 0.4)), 
-                        url('https://img.freepik.com/free-vector/happy-dogs-playing-park-illustration_1308-164478.jpg') no-repeat center center fixed;
+            background-color: #1e1b4b;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
             background-size: cover;
+            transition: background-image 1s ease-in-out;
             display: flex; 
             justify-content: center; 
             align-items: center;
@@ -26,7 +29,7 @@
             max-width: 440px; 
             border-radius: 24px; 
             padding: 22px; 
-            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.25); 
+            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.35); 
             position: relative;
             backdrop-filter: blur(8px);
             border: 2px solid #ddd6fe;
@@ -38,7 +41,6 @@
         
         .section-title { font-size: 13px; font-weight: bold; color: #6d28d9; margin: 10px 0 6px 0; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        /* SELEZIONE OPZIONI (VIOLA & LILLA) */
         .options-group { display: flex; gap: 10px; margin-bottom: 12px; }
         .option-btn { flex: 1; text-align: center; }
         .option-btn input { display: none; }
@@ -52,7 +54,6 @@
         input[type="number"], input[type="text"], input[type="password"], textarea, select { width: 100%; padding: 11px; border-radius: 10px; border: 1px solid #c4b5fd; font-size: 14px; background: #f5f3ff; margin-bottom: 12px; color: #4c1d95; }
         textarea { resize: vertical; min-height: 80px; }
 
-        /* RETTANGOLO SEGNALAZIONI (BLU CHIARO) */
         .area-box-highlight {
             background: #e0f2fe;
             border: 2px dashed #0284c7;
@@ -65,7 +66,6 @@
             margin-bottom: 12px;
         }
 
-        /* PULSANTI (VERDE, VIOLA & BLU) */
         .btn { background-color: #10b981; color: white; border: none; width: 100%; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
         .btn-danger { background-color: #ef4444; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3); }
         .btn-secondary { background-color: #8b5cf6; margin-top: 8px; color: white; }
@@ -77,7 +77,6 @@
 
         .user-badge { background: #ddd6fe; color: #5b21b6; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
 
-        /* NUVOLETTA SEGNALAZIONI (LILLA & VIOLA) */
         .speech-bubble { background: #7c3aed; color: white; padding: 12px 15px; border-radius: 15px; margin-bottom: 15px; cursor: pointer; text-align: center; font-weight: 600; font-size: 13px; position: relative; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3); }
 
         .stat-box { background: #f5f3ff; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 15px; border: 1px solid #ddd6fe; color: #4c1d95; }
@@ -85,7 +84,6 @@
         .map-container { width: 100%; height: 210px; border-radius: 12px; overflow: hidden; margin-bottom: 15px; border: 2px solid #bae6fd; }
         .report-item { background: #f0f9ff; border: 1px solid #bae6fd; padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 12px; color: #0369a1; }
 
-        /* FOOTER (BLU CHIARO & LILLA) */
         .info-footer { background-color: #f5f3ff; border-top: 2px solid #ddd6fe; margin-top: 20px; padding-top: 15px; border-radius: 12px; }
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; color: #6d28d9; }
         .info-item { background: #ffffff; padding: 8px; border-radius: 6px; border: 1px solid #e0e7ff; }
@@ -162,7 +160,6 @@
         
         <p style="font-size: 12px; color: #6d28d9; margin-top: 8px; margin-bottom: 6px;">Area Cani oggetto della segnalazione:</p>
         
-        <!-- RETTANGOLO AREA CANI SEGNALATA -->
         <div class="area-box-highlight" id="report-area-name">
             Area cani A - Sesto FS (Rilevata da GPS)
         </div>
@@ -195,7 +192,6 @@
     <div id="admin-dashboard">
         <span class="section-title">👑 Dashboard Creatore</span>
         
-        <!-- Mappa Google Maps Mappa Esatta Giardino Gramsci-Petrarca di fronte PalaSesto -->
         <div class="map-container">
             <iframe id="admin-map-iframe" width="100%" height="100%" frameborder="0" style="border:0"
                 src="https://maps.google.com/maps?q=45.5413,9.2323&t=&z=17&ie=UTF8&iwloc=&output=embed" allowfullscreen>
@@ -211,9 +207,9 @@
         <div id="reports-list"></div>
 
         <span class="section-title">✏️ Invia Risposta a un Padrone:</span>
+        <!-- La lista si aggiorna in automatico con tutti i cani -->
         <select id="reply-target-dog">
-            <option value="Luna">Destinatario: Cane Luna</option>
-            <option value="Rocky">Destinatario: Cane Rocky</option>
+            <!-- Popolato dinamicamente da JS -->
         </select>
         <textarea id="reply-message-text" placeholder="Scrivi la risposta che il padrone vedrà al suo ritorno..."></textarea>
         <button class="btn btn-admin" onclick="sendReplyToUser()">Invia Risposta</button>
@@ -236,7 +232,7 @@
 <script>
     let countdown;
     const SLOT_DURATION = 15 * 60;
-    let existingNames = ["Luna", "Milo", "Rocky", "Jack"];
+    let registeredDogNames = ["Luna", "Milo", "Rocky", "Jack"];
     let detectedAreaName = "Area cani A - Sesto FS";
     
     let reports = [
@@ -244,6 +240,23 @@
         { id: 2, dog: "Rocky", area: "Area cani B - Sesto FS", text: "Il cancello principale non chiude bene." }
     ];
     let pendingReplies = {};
+
+    // ROTAZIONE SFONDI RAZZE CANI CARTONE ANIMATO (OGNI 60 SECONDI)
+    const dogBreedBackgrounds = [
+        "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1000&q=80", // Beagle
+        "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=1000&q=80", // Golden Retriever
+        "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=1000&q=80", // French Bulldog
+        "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=1000&q=80", // Corgi
+        "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=1000&q=80"  // Pastore Tedesco
+    ];
+
+    let currentBgIndex = 0;
+    function changeDogBackground() {
+        document.body.style.backgroundImage = `linear-gradient(135deg, rgba(124, 58, 237, 0.45), rgba(56, 189, 248, 0.45)), url('${dogBreedBackgrounds[currentBgIndex]}')`;
+        currentBgIndex = (currentBgIndex + 1) % dogBreedBackgrounds.length;
+    }
+    changeDogBackground();
+    setInterval(changeDogBackground, 60000); // Cambia ogni 60 secondi (1 minuto)
 
     function requestGeolocation() {
         const geoStatus = document.getElementById('geo-status');
@@ -317,6 +330,9 @@
             return;
         }
         reports.push({ id: Date.now(), dog: currentDog, area: detectedAreaName, text: text });
+        if (!registeredDogNames.includes(currentDog)) {
+            registeredDogNames.push(currentDog);
+        }
         alert("Messaggio inviato con successo al creatore!");
         document.getElementById('feedback-text').value = '';
         closeSettings();
@@ -350,10 +366,18 @@
         document.getElementById('admin-dashboard').style.display = 'block';
         document.getElementById('active-dogs-count').textContent = countdown ? "1" : "0";
         
+        // Popola la lista delle segnalazioni
         const listDiv = document.getElementById('reports-list');
         listDiv.innerHTML = "";
         reports.forEach(r => {
             listDiv.innerHTML += `<div class="report-item"><b>📍 ${r.area}</b><br><b>🐶 ${r.dog}:</b> "${r.text}"</div>`;
+        });
+
+        // POPOLA DINAMICAMENTE IL MENU A TENDINA CON TUTTI I CANI REGISTRATI
+        const selectTarget = document.getElementById('reply-target-dog');
+        selectTarget.innerHTML = "";
+        registeredDogNames.forEach(dogName => {
+            selectTarget.innerHTML += `<option value="${dogName}">Destinatario: Cane ${dogName}</option>`;
         });
     }
 
@@ -397,12 +421,12 @@
 
         let finalName = inputName;
         let counter = 1;
-        while (existingNames.includes(finalName)) {
+        while (registeredDogNames.includes(finalName)) {
             finalName = `${inputName}_${counter}`;
             counter++;
         }
 
-        existingNames.push(finalName);
+        registeredDogNames.push(finalName);
         localStorage.setItem('dogName', finalName);
 
         document.getElementById('account-modal').style.display = 'none';
@@ -414,6 +438,10 @@
         document.getElementById('account-modal').style.display = 'none';
         document.getElementById('timer-screen').style.display = 'block';
         document.getElementById('active-dog-name').textContent = `🐶 ${dogName}`;
+
+        if (!registeredDogNames.includes(dogName)) {
+            registeredDogNames.push(dogName);
+        }
 
         if (pendingReplies[dogName]) {
             document.getElementById('notification-bubble').style.display = 'block';

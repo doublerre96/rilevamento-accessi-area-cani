@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Check-in Area Cani</title>
+    <title>Check-in Area Cani & Admin Dashboard</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
         body { background-color: #f0f4f8; display: flex; justify-content: center; padding: 15px; }
-        .card { background: #ffffff; width: 100%; max-width: 420px; border-radius: 20px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); position: relative; }
+        .card { background: #ffffff; width: 100%; max-width: 440px; border-radius: 20px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); position: relative; }
         
-        /* Header e Ingranaggio */
         .header-park { text-align: center; border-bottom: 2px solid #f0f4f8; padding-bottom: 12px; margin-bottom: 15px; position: relative; }
         .park-title { font-size: 20px; color: #1e293b; font-weight: bold; padding-right: 30px; }
         .settings-btn { position: absolute; right: 0; top: 0; font-size: 22px; cursor: pointer; background: none; border: none; padding: 5px; }
@@ -26,18 +25,28 @@
         .checkbox-card input { width: 18px; height: 18px; accent-color: #6366f1; }
         .checkbox-card span { font-size: 13px; color: #334155; font-weight: 500; }
 
-        input[type="number"], input[type="text"], input[type="password"], textarea { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 14px; background: #f8fafc; margin-bottom: 12px; }
+        input[type="number"], input[type="text"], input[type="password"], textarea, select { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 14px; background: #f8fafc; margin-bottom: 12px; }
         textarea { resize: vertical; min-height: 80px; }
 
         .btn { background-color: #22c55e; color: white; border: none; width: 100%; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 10px; }
         .btn-danger { background-color: #ef4444; }
         .btn-secondary { background-color: #64748b; margin-top: 8px; }
-        .btn-google { background-color: #4285f4; color: white; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-admin { background-color: #6366f1; color: white; }
 
-        #account-modal, #timer-screen, #settings-modal, #creator-login-modal { display: none; }
+        #account-modal, #timer-screen, #settings-modal, #admin-login-screen, #admin-dashboard, #notification-bubble { display: none; }
         .timer-display { font-size: 44px; font-weight: bold; color: #1e293b; margin: 15px 0; background: #f8fafc; padding: 10px; border-radius: 12px; border: 2px dashed #22c55e; text-align: center; }
 
         .user-badge { background: #e0e7ff; color: #4338ca; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
+
+        /* Nuvoletta Notifica Risposta */
+        .speech-bubble { background: #0284c7; color: white; padding: 12px 15px; border-radius: 15px; margin-bottom: 15px; cursor: pointer; text-align: center; font-weight: 600; font-size: 13px; position: relative; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); }
+        .speech-bubble::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); border-width: 8px 8px 0; border-style: solid; border-color: #0284c7 transparent; }
+
+        /* Admin UI */
+        .stat-box { background: #f1f5f9; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 15px; border: 1px solid #e2e8f0; }
+        .stat-number { font-size: 28px; font-weight: bold; color: #4338ca; }
+        .map-container { width: 100%; height: 180px; border-radius: 12px; overflow: hidden; margin-bottom: 15px; border: 1px solid #cbd5e1; }
+        .report-item { background: #f8fafc; border: 1px solid #e2e8f0; padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 12px; }
 
         .info-footer { background-color: #f8fafc; border-top: 1px solid #e2e8f0; margin-top: 20px; padding-top: 15px; border-radius: 10px; }
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; color: #64748b; }
@@ -79,7 +88,7 @@
         <button class="btn" onclick="proceedToCheckin()">Conferma e Accedi</button>
     </div>
 
-    <!-- VISTA 2: CREAZIONE PROFILO / CREDENZIALI -->
+    <!-- VISTA 2: CREAZIONE PROFILO / CREDENZIALI PADRONE -->
     <div id="account-modal">
         <span class="section-title">Crea o Accedi al Profilo:</span>
         <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Inserisci il nome del cane e la password per registrare l'accesso.</p>
@@ -90,8 +99,12 @@
         <button class="btn" onclick="saveProfileAndStart()">Salva Profilo e Avvia Slot</button>
     </div>
 
-    <!-- VISTA 3: TIMER ATTIVO -->
+    <!-- VISTA 3: TIMER ATTIVO + NOTIFICA NUVOLETTA -->
     <div id="timer-screen">
+        <div id="notification-bubble" class="speech-bubble" onclick="showAdminReply()">
+            💬 Hai 1 nuova risposta dal Creatore! Clicca qui per leggerla.
+        </div>
+
         <div style="text-align: center;">
             <span class="user-badge" id="active-dog-name">🐶 Nome Cane</span>
             <p style="font-size: 14px; color: #64748b;">Slot attivo - Tempo rimanente:</p>
@@ -104,20 +117,62 @@
     <div id="settings-modal">
         <span class="section-title">⚙️ Impostazioni & Supporto</span>
         
-        <p style="font-size: 12px; color: #64748b; margin-top: 8px;">Invia una segnalazione o feedback al creatore:</p>
-        <textarea id="feedback-text" placeholder="Scrivi qui il tuo messaggio o segnalazione..."></textarea>
+        <p style="font-size: 12px; color: #64748b; margin-top: 8px;">Invia una segnalazione al creatore:</p>
+        <textarea id="feedback-text" placeholder="Scrivi qui il tuo messaggio o la segnalazione guasti..."></textarea>
         <button class="btn" onclick="sendFeedback()">Invia al Creatore</button>
 
         <hr style="margin: 15px 0; border: 0; border-top: 1px solid #e2e8f0;">
 
-        <span class="section-title">🔒 Accesso Riservato Creatore</span>
-        <p style="font-size: 12px; color: #64748b; margin-bottom: 8px;">Area di gestione riservata all'amministratore del progetto.</p>
-        <button class="btn btn-google" onclick="loginWithGoogle()">
-            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#ffffff" d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.545,6.477,2.545,12s4.476,10,10,10c5.772,0,9.602-4.059,9.602-9.771c0-0.658-0.064-1.312-0.18-1.99H12.545z"/></svg>
-            Accedi con Google (Amministratore)
-        </button>
-
+        <span class="section-title">🔒 Accesso Creatore</span>
+        <button class="btn btn-admin" onclick="showAdminLoginForm()">Accedi come Creatore</button>
         <button class="btn btn-secondary" onclick="closeSettings()">Chiudi</button>
+    </div>
+
+    <!-- VISTA LOGIN CREATORE -->
+    <div id="admin-login-screen">
+        <span class="section-title">👑 Login Amministratore / Creatore</span>
+        <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Inserisci le tue credenziali riservate per accedere al pannello di controllo.</p>
+        
+        <input type="text" id="admin-user-input" placeholder="Nome Utente">
+        <input type="password" id="admin-pass-input" placeholder="Password">
+
+        <button class="btn btn-admin" onclick="validateAdminLogin()">Accedi al Pannello</button>
+        <button class="btn btn-secondary" onclick="closeAdminLoginForm()">Annulla</button>
+    </div>
+
+    <!-- DASHBOARD CREATORE / ADMIN -->
+    <div id="admin-dashboard">
+        <span class="section-title">👑 Dashboard Creatore</span>
+        
+        <!-- Mappa Google Maps -->
+        <div class="map-container">
+            <iframe width="100%" height="100%" frameborder="0" style="border:0"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d44743.08447814917!2d9.1800!3d45.5300!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4786c905e94b29f7%3A0x8671603ba5ef7922!2sParco%20Nord%20Milano!5e0!3m2!1sit!2sit!4v1680000000000!5m2!1sit!2sit" allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- Conteggio Cani Presenti -->
+        <div class="stat-box">
+            <div>Cani Presenti Ora nell'Area:</div>
+            <div class="stat-number" id="active-dogs-count">1</div>
+        </div>
+
+        <!-- Segnalazioni Ricevute -->
+        <span class="section-title">📨 Segnalazioni Ricevute:</span>
+        <div id="reports-list">
+            <!-- Popolato via JS -->
+        </div>
+
+        <!-- Rispondi a un Padrone -->
+        <span class="section-title">✏️ Invia Risposta a un Padrone:</span>
+        <select id="reply-target-dog">
+            <option value="Luna">Destinatario: Cane Luna</option>
+            <option value="Rocky">Destinatario: Cane Rocky</option>
+        </select>
+        <textarea id="reply-message-text" placeholder="Scrivi la risposta che il padrone vedrà al suo ritorno..."></textarea>
+        <button class="btn btn-admin" onclick="sendReplyToUser()">Invia Risposta</button>
+
+        <button class="btn btn-secondary" onclick="closeAdminDashboard()">Esci da Admin</button>
     </div>
 
     <!-- SCHEDA INFORMATIVA IN BASSO -->
@@ -135,7 +190,13 @@
 <script>
     let countdown;
     const SLOT_DURATION = 15 * 60;
-    let existingNames = ["Luna", "Milo", "Rocky", "Luna_1", "Jack"];
+    let existingNames = ["Luna", "Milo", "Rocky", "Jack"];
+    
+    let reports = [
+        { id: 1, dog: "Luna", text: "La fontanella perde acqua all'ingresso." },
+        { id: 2, dog: "Rocky", text: "Il cancello principale non chiude bene." }
+    ];
+    let pendingReplies = {};
 
     function updateDateTime() {
         const now = new Date();
@@ -146,17 +207,17 @@
     updateDateTime();
     setInterval(updateDateTime, 1000);
 
-    // Gestione Modal Ingranaggio
     function openSettings() {
         document.getElementById('checkin-screen').style.display = 'none';
         document.getElementById('account-modal').style.display = 'none';
         document.getElementById('timer-screen').style.display = 'none';
+        document.getElementById('admin-login-screen').style.display = 'none';
+        document.getElementById('admin-dashboard').style.display = 'none';
         document.getElementById('settings-modal').style.display = 'block';
     }
 
     function closeSettings() {
         document.getElementById('settings-modal').style.display = 'none';
-        const savedDogName = localStorage.getItem('dogName');
         if (countdown) {
             document.getElementById('timer-screen').style.display = 'block';
         } else {
@@ -166,17 +227,71 @@
 
     function sendFeedback() {
         const text = document.getElementById('feedback-text').value.trim();
+        const currentDog = localStorage.getItem('dogName') || "Anonimo";
         if (!text) {
             alert("Inserisci un messaggio prima di inviare.");
             return;
         }
-        alert("Messaggio inviato con successo al creatore del progetto!");
+        reports.push({ id: Date.now(), dog: currentDog, text: text });
+        alert("Messaggio inviato con successo al creatore!");
         document.getElementById('feedback-text').value = '';
         closeSettings();
     }
 
-    function loginWithGoogle() {
-        alert("Autenticazione Google in corso... Questa opzione consentirà l'accesso esclusivo al pannello di controllo dell'amministratore.");
+    // Mostra la form di Login Admin
+    function showAdminLoginForm() {
+        document.getElementById('settings-modal').style.display = 'none';
+        document.getElementById('admin-login-screen').style.display = 'block';
+    }
+
+    function closeAdminLoginForm() {
+        document.getElementById('admin-login-screen').style.display = 'none';
+        document.getElementById('settings-modal').style.display = 'block';
+    }
+
+    // Controllo Nome e Password Admin
+    function validateAdminLogin() {
+        const user = document.getElementById('admin-user-input').value.trim();
+        const pass = document.getElementById('admin-pass-input').value.trim();
+
+        if (user === "ADMIN" && pass === "Admin2026!") {
+            document.getElementById('admin-login-screen').style.display = 'none';
+            document.getElementById('admin-user-input').value = '';
+            document.getElementById('admin-pass-input').value = '';
+            openAdminDashboard();
+        } else {
+            alert("Credenziali errate! Verifica il Nome Utente e la Password.");
+        }
+    }
+
+    function openAdminDashboard() {
+        document.getElementById('admin-dashboard').style.display = 'block';
+        document.getElementById('active-dogs-count').textContent = countdown ? "1" : "0";
+        
+        const listDiv = document.getElementById('reports-list');
+        listDiv.innerHTML = "";
+        reports.forEach(r => {
+            listDiv.innerHTML += `<div class="report-item"><b>🐶 ${r.dog}:</b> "${r.text}"</div>`;
+        });
+    }
+
+    function closeAdminDashboard() {
+        document.getElementById('admin-dashboard').style.display = 'none';
+        document.getElementById('checkin-screen').style.display = 'block';
+    }
+
+    function sendReplyToUser() {
+        const targetDog = document.getElementById('reply-target-dog').value;
+        const replyText = document.getElementById('reply-message-text').value.trim();
+
+        if (!replyText) {
+            alert("Inserisci un testo per la risposta.");
+            return;
+        }
+
+        pendingReplies[targetDog] = replyText;
+        alert(`Risposta inviata! Quando il padrone di ${targetDog} tornerà nell'area cani, vedrà la nuvoletta con il tuo messaggio.`);
+        document.getElementById('reply-message-text').value = '';
     }
 
     function proceedToCheckin() {
@@ -194,7 +309,7 @@
         const password = document.getElementById('dog-password-input').value.trim();
 
         if (!inputName || !password) {
-            alert("Per favore, inserisci sia il nome del cane che la password.");
+            alert("Inserisci nome cane e password.");
             return;
         }
 
@@ -203,10 +318,6 @@
         while (existingNames.includes(finalName)) {
             finalName = `${inputName}_${counter}`;
             counter++;
-        }
-
-        if (finalName !== inputName) {
-            alert(`Il nome '${inputName}' era già registrato. Il tuo profilo è stato registrato come '${finalName}'.`);
         }
 
         existingNames.push(finalName);
@@ -222,6 +333,12 @@
         document.getElementById('timer-screen').style.display = 'block';
         document.getElementById('active-dog-name').textContent = `🐶 ${dogName}`;
 
+        if (pendingReplies[dogName]) {
+            document.getElementById('notification-bubble').style.display = 'block';
+        } else {
+            document.getElementById('notification-bubble').style.display = 'none';
+        }
+
         let timeLeft = SLOT_DURATION;
         updateTimerDisplay(timeLeft);
 
@@ -234,6 +351,14 @@
                 endSession();
             }
         }, 1000);
+    }
+
+    function showAdminReply() {
+        const dogName = localStorage.getItem('dogName');
+        const replyMsg = pendingReplies[dogName];
+        alert(`📩 Messaggio dal Creatore per ${dogName}:\n\n"${replyMsg}"`);
+        document.getElementById('notification-bubble').style.display = 'none';
+        delete pendingReplies[dogName];
     }
 
     function updateTimerDisplay(seconds) {

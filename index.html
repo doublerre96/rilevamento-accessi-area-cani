@@ -7,30 +7,42 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
         
-        /* SFONDO DINAMICO CARTONE ANIMATO */
         body { 
-            background-color: #1e1b4b;
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-attachment: fixed;
-            background-size: cover;
-            transition: background-image 1s ease-in-out;
+            background: linear-gradient(135deg, #6d28d9, #0284c7);
             display: flex; 
             justify-content: center; 
             align-items: center;
             min-height: 100vh;
             padding: 15px; 
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* CARD PRINCIPALE SU TONI LILLA E VIOLA */
+        /* SFONDO VETTORIALE CANE ANIMATO */
+        #bg-dog-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0.35;
+            pointer-events: none;
+            transition: all 1s ease-in-out;
+        }
+
         .card { 
             background: rgba(255, 255, 255, 0.96); 
             width: 100%; 
             max-width: 440px; 
             border-radius: 24px; 
             padding: 22px; 
-            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.35); 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3); 
             position: relative;
+            z-index: 10;
             backdrop-filter: blur(8px);
             border: 2px solid #ddd6fe;
         }
@@ -93,6 +105,13 @@
     </style>
 </head>
 <body>
+
+<!-- CONTENITORE SFONDO CANE CARTONE ANIMATO -->
+<div id="bg-dog-container">
+    <svg id="dog-svg" width="350" height="350" viewBox="0 0 200 200">
+        <!-- Generato via JavaScript -->
+    </svg>
+</div>
 
 <div class="card">
     
@@ -207,9 +226,7 @@
         <div id="reports-list"></div>
 
         <span class="section-title">✏️ Invia Risposta a un Padrone:</span>
-        <select id="reply-target-dog">
-            <!-- Popolato dinamicamente da JS -->
-        </select>
+        <select id="reply-target-dog"></select>
         <textarea id="reply-message-text" placeholder="Scrivi la risposta che il padrone vedrà al suo ritorno..."></textarea>
         <button class="btn btn-admin" onclick="sendReplyToUser()">Invia Risposta</button>
 
@@ -240,22 +257,54 @@
     ];
     let pendingReplies = {};
 
-    // ILLUSTRAZIONI CARTOON SIMPATICHE DI CANI NEL PARCO (CAMBIO OGNI 60 SECONDI)
-    const cartoonDogBackgrounds = [
-        "https://img.freepik.com/free-vector/happy-dogs-playing-park-illustration_1308-164478.jpg",
-        "https://img.freepik.com/free-vector/cute-dogs-group-park-scene_1308-128224.jpg",
-        "https://img.freepik.com/free-vector/funny-pets-playing-outdoor-park_1308-132101.jpg",
-        "https://img.freepik.com/free-vector/group-cute-dogs-cartoon-illustration_1308-125430.jpg",
-        "https://img.freepik.com/free-vector/dog-breed-characters-park-landscape_1308-133502.jpg"
+    // GENERATORE CANI CARTONE ANIMATO IN SVG CON ROTAZIONE OGNI 60 SECONDI
+    const dogBreeds = [
+        { breed: "Golden Retriever", bodyColor: "#f59e0b", earColor: "#d97706", earType: "floppy" },
+        { breed: "Bulldog", bodyColor: "#94a3b8", earColor: "#64748b", earType: "short" },
+        { breed: "Beagle", bodyColor: "#b45309", earColor: "#78350f", earType: "floppy" },
+        { breed: "Pastore Tedesco", bodyColor: "#1e293b", earColor: "#b45309", earType: "pointed" },
+        { breed: "Corgy", bodyColor: "#fb923c", earColor: "#ea580c", earType: "pointed" }
     ];
 
-    let currentBgIndex = 0;
-    function changeDogBackground() {
-        document.body.style.backgroundImage = `linear-gradient(135deg, rgba(124, 58, 237, 0.45), rgba(56, 189, 248, 0.45)), url('${cartoonDogBackgrounds[currentBgIndex]}')`;
-        currentBgIndex = (currentBgIndex + 1) % cartoonDogBackgrounds.length;
+    let currentBreedIndex = 0;
+
+    function renderCartoonDog() {
+        const b = dogBreeds[currentBreedIndex];
+        const svg = document.getElementById('dog-svg');
+        
+        let earsSVG = '';
+        if (b.earType === 'floppy') {
+            earsSVG = `<ellipse cx="50" cy="80" rx="20" ry="40" fill="${b.earColor}" />
+                       <ellipse cx="150" cy="80" rx="20" ry="40" fill="${b.earColor}" />`;
+        } else if (b.earType === 'pointed') {
+            earsSVG = `<polygon points="40,90 60,30 85,75" fill="${b.earColor}" />
+                       <polygon points="160,90 140,30 115,75" fill="${b.earColor}" />`;
+        } else {
+            earsSVG = `<circle cx="55" cy="65" r="22" fill="${b.earColor}" />
+                       <circle cx="145" cy="65" r="22" fill="${b.earColor}" />`;
+        }
+
+        svg.innerHTML = `
+            ${earsSVG}
+            <!-- Testa del cane -->
+            <circle cx="100" cy="100" r="55" fill="${b.bodyColor}" />
+            <!-- Occhi grandi cartone animato -->
+            <circle cx="80" cy="90" r="12" fill="#ffffff" />
+            <circle cx="82" cy="90" r="6" fill="#000000" />
+            <circle cx="120" cy="90" r="12" fill="#ffffff" />
+            <circle cx="122" cy="90" r="6" fill="#000000" />
+            <!-- Musetto -->
+            <ellipse cx="100" cy="115" rx="22" ry="16" fill="#ffffff" />
+            <ellipse cx="100" cy="108" rx="8" ry="6" fill="#1e293b" />
+            <!-- Lingua felice -->
+            <path d="M 94 120 Q 100 135 106 120 Z" fill="#ef4444" />
+        `;
+
+        currentBreedIndex = (currentBreedIndex + 1) % dogBreeds.length;
     }
-    changeDogBackground();
-    setInterval(changeDogBackground, 60000); // Cambia ogni minuto (60 secondi)
+
+    renderCartoonDog();
+    setInterval(renderCartoonDog, 60000); // Cambia razza ogni 60 secondi (1 minuto)
 
     function requestGeolocation() {
         const geoStatus = document.getElementById('geo-status');

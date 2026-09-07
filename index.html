@@ -18,7 +18,6 @@
             overflow-x: hidden;
         }
 
-        /* SFONDO VETTORIALE CANE ANIMATO */
         #bg-dog-container {
             position: fixed;
             top: 0;
@@ -48,8 +47,20 @@
         }
         
         .header-park { text-align: center; border-bottom: 2px solid #e0e7ff; padding-bottom: 12px; margin-bottom: 15px; position: relative; }
-        .park-title { font-size: 19px; color: #5b21b6; font-weight: 800; padding-right: 30px; }
-        .settings-btn { position: absolute; right: 0; top: -5px; font-size: 24px; cursor: pointer; background: none; border: none; }
+        .park-title { font-size: 19px; color: #5b21b6; font-weight: 800; padding-right: 35px; }
+        
+        .settings-btn { 
+            position: absolute; 
+            right: 0; 
+            top: -2px; 
+            font-size: 26px; 
+            cursor: pointer; 
+            background: none; 
+            border: none; 
+            z-index: 20;
+            transition: transform 0.2s;
+        }
+        .settings-btn:active { transform: scale(0.9); }
         
         .section-title { font-size: 13px; font-weight: bold; color: #6d28d9; margin: 10px 0 6px 0; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
         
@@ -83,6 +94,21 @@
         .btn-secondary { background-color: #8b5cf6; margin-top: 8px; color: white; }
         .btn-admin { background-color: #0284c7; color: white; }
 
+        /* PULSANTE PASSWORD DIMENTICATA */
+        .btn-forgot-pass {
+            background: none;
+            border: none;
+            color: #7c3aed;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: underline;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+            display: block;
+        }
+
         #account-modal, #timer-screen, #settings-modal, #admin-login-screen, #admin-dashboard, #notification-bubble, #geo-status { display: none; }
         
         .timer-display { font-size: 44px; font-weight: bold; color: #4c1d95; margin: 15px 0; background: #f5f3ff; padding: 10px; border-radius: 12px; border: 2px dashed #10b981; text-align: center; }
@@ -94,7 +120,17 @@
         .stat-box { background: #f5f3ff; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 15px; border: 1px solid #ddd6fe; color: #4c1d95; }
         .stat-number { font-size: 28px; font-weight: bold; color: #7c3aed; }
         .map-container { width: 100%; height: 210px; border-radius: 12px; overflow: hidden; margin-bottom: 15px; border: 2px solid #bae6fd; }
-        .report-item { background: #f0f9ff; border: 1px solid #bae6fd; padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 12px; color: #0369a1; }
+        
+        .reports-scroll-container {
+            max-height: 180px;
+            overflow-y: auto;
+            border: 1px solid #c4b5fd;
+            border-radius: 10px;
+            padding: 8px;
+            background: #faf5ff;
+            margin-bottom: 12px;
+        }
+        .report-item { background: #ffffff; border: 1px solid #bae6fd; padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 12px; color: #0369a1; }
 
         .info-footer { background-color: #f5f3ff; border-top: 2px solid #ddd6fe; margin-top: 20px; padding-top: 15px; border-radius: 12px; }
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; color: #6d28d9; }
@@ -106,18 +142,15 @@
 </head>
 <body>
 
-<!-- CONTENITORE SFONDO CANE CARTONE ANIMATO -->
 <div id="bg-dog-container">
-    <svg id="dog-svg" width="350" height="350" viewBox="0 0 200 200">
-        <!-- Generato via JavaScript -->
-    </svg>
+    <svg id="dog-svg" width="350" height="350" viewBox="0 0 200 200"></svg>
 </div>
 
 <div class="card">
     
     <div class="header-park">
         <div class="park-title" id="park-name-header">🐾 Area Cani Sesto FS</div>
-        <button class="settings-btn" onclick="openSettings()" title="Impostazioni">⚙️</button>
+        <button class="settings-btn" onclick="openSettings()" title="Impostazioni & Admin">⚙️</button>
     </div>
 
     <!-- VISTA 1: DETTAGLI CANE -->
@@ -157,6 +190,9 @@
         <input type="password" id="dog-password-input" placeholder="Password">
 
         <button class="btn" onclick="saveProfileAndStart()">Salva Profilo e Avvia Slot</button>
+        
+        <!-- OPZIONE PASSWORD DIMENTICATA -->
+        <button class="btn-forgot-pass" onclick="resetDogProfile()">Password dimenticata? Ricrea Profilo</button>
     </div>
 
     <!-- VISTA 3: TIMER ATTIVO + NOTIFICA NUVOLETTA -->
@@ -222,8 +258,8 @@
             <div class="stat-number" id="active-dogs-count">1</div>
         </div>
 
-        <span class="section-title">📨 Segnalazioni Ricevute:</span>
-        <div id="reports-list"></div>
+        <span class="section-title">📨 Segnalazioni Ricevute (Scorri per vedere tutte):</span>
+        <div class="reports-scroll-container" id="reports-list"></div>
 
         <span class="section-title">✏️ Invia Risposta a un Padrone:</span>
         <select id="reply-target-dog"></select>
@@ -257,7 +293,6 @@
     ];
     let pendingReplies = {};
 
-    // GENERATORE CANI CARTONE ANIMATO IN SVG CON ROTAZIONE OGNI 60 SECONDI
     const dogBreeds = [
         { breed: "Golden Retriever", bodyColor: "#f59e0b", earColor: "#d97706", earType: "floppy" },
         { breed: "Bulldog", bodyColor: "#94a3b8", earColor: "#64748b", earType: "short" },
@@ -286,17 +321,13 @@
 
         svg.innerHTML = `
             ${earsSVG}
-            <!-- Testa del cane -->
             <circle cx="100" cy="100" r="55" fill="${b.bodyColor}" />
-            <!-- Occhi grandi cartone animato -->
             <circle cx="80" cy="90" r="12" fill="#ffffff" />
             <circle cx="82" cy="90" r="6" fill="#000000" />
             <circle cx="120" cy="90" r="12" fill="#ffffff" />
             <circle cx="122" cy="90" r="6" fill="#000000" />
-            <!-- Musetto -->
             <ellipse cx="100" cy="115" rx="22" ry="16" fill="#ffffff" />
             <ellipse cx="100" cy="108" rx="8" ry="6" fill="#1e293b" />
-            <!-- Lingua felice -->
             <path d="M 94 120 Q 100 135 106 120 Z" fill="#ef4444" />
         `;
 
@@ -304,7 +335,7 @@
     }
 
     renderCartoonDog();
-    setInterval(renderCartoonDog, 60000); // Cambia razza ogni 60 secondi (1 minuto)
+    setInterval(renderCartoonDog, 60000);
 
     function requestGeolocation() {
         const geoStatus = document.getElementById('geo-status');
@@ -477,6 +508,16 @@
 
         document.getElementById('account-modal').style.display = 'none';
         startTimer(finalName);
+    }
+
+    // RIPRISTINO/RICREAZIONE PROFILO IN CASO DI PASSWORD DIMENTICATA
+    function resetDogProfile() {
+        if (confirm("Vuoi cancellare i dati salvati su questo telefono e creare un nuovo profilo?")) {
+            localStorage.removeItem('dogName');
+            document.getElementById('dog-name-input').value = '';
+            document.getElementById('dog-password-input').value = '';
+            alert("Profilo resettato. Ora puoi inserire il nuovo Nome Cane e Password.");
+        }
     }
 
     function startTimer(dogName) {

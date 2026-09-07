@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Check-in Area Cani & Admin Dashboard</title>
+    <title>Check-in Area Cani Sesto FS</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
         body { background-color: #f0f4f8; display: flex; justify-content: center; padding: 15px; }
         .card { background: #ffffff; width: 100%; max-width: 440px; border-radius: 20px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); position: relative; }
         
         .header-park { text-align: center; border-bottom: 2px solid #f0f4f8; padding-bottom: 12px; margin-bottom: 15px; position: relative; }
-        .park-title { font-size: 20px; color: #1e293b; font-weight: bold; padding-right: 30px; }
+        .park-title { font-size: 18px; color: #1e293b; font-weight: bold; padding-right: 30px; }
         .settings-btn { position: absolute; right: 0; top: 0; font-size: 22px; cursor: pointer; background: none; border: none; padding: 5px; }
         
         .section-title { font-size: 14px; font-weight: bold; color: #475569; margin: 12px 0 8px 0; display: block; }
@@ -38,14 +38,12 @@
 
         .user-badge { background: #e0e7ff; color: #4338ca; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
 
-        /* Nuvoletta Notifica Risposta */
         .speech-bubble { background: #0284c7; color: white; padding: 12px 15px; border-radius: 15px; margin-bottom: 15px; cursor: pointer; text-align: center; font-weight: 600; font-size: 13px; position: relative; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); }
         .speech-bubble::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); border-width: 8px 8px 0; border-style: solid; border-color: #0284c7 transparent; }
 
-        /* Admin UI */
         .stat-box { background: #f1f5f9; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 15px; border: 1px solid #e2e8f0; }
         .stat-number { font-size: 28px; font-weight: bold; color: #4338ca; }
-        .map-container { width: 100%; height: 180px; border-radius: 12px; overflow: hidden; margin-bottom: 15px; border: 1px solid #cbd5e1; }
+        .map-container { width: 100%; height: 210px; border-radius: 12px; overflow: hidden; margin-bottom: 15px; border: 1px solid #cbd5e1; }
         .report-item { background: #f8fafc; border: 1px solid #e2e8f0; padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 12px; }
 
         .info-footer { background-color: #f8fafc; border-top: 1px solid #e2e8f0; margin-top: 20px; padding-top: 15px; border-radius: 10px; }
@@ -59,12 +57,18 @@
 <div class="card">
     
     <div class="header-park">
-        <div class="park-title" id="park-name-header">🐾 Area Cani Parco Nord</div>
+        <div class="park-title" id="park-name-header">🐾 Area Cani Sesto FS</div>
         <button class="settings-btn" onclick="openSettings()" title="Impostazioni">⚙️</button>
     </div>
 
     <!-- VISTA 1: DETTAGLI CANE -->
     <div id="checkin-screen">
+        <span class="section-title">Seleziona Area Cani:</span>
+        <select id="selected-area" onchange="updateSelectedArea()">
+            <option value="Area cani A - Sesto FS (Sud / PalaSesto)">Area cani A - Sesto FS (Sud / PalaSesto)</option>
+            <option value="Area cani B - Sesto FS (Nord / Via Ariosto)">Area cani B - Sesto FS (Nord / Via Ariosto)</option>
+        </select>
+
         <span class="section-title">1. Sesso del cane:</span>
         <div class="options-group">
             <div class="option-btn">
@@ -123,7 +127,6 @@
 
         <hr style="margin: 15px 0; border: 0; border-top: 1px solid #e2e8f0;">
 
-        <!-- BOTTONE ACCESSO RISERVATO AGGIORNATO -->
         <span class="section-title">🔒 Area Amministratore</span>
         <button class="btn btn-admin" onclick="showAdminLoginForm()">Accesso Riservato</button>
         <button class="btn btn-secondary" onclick="closeSettings()">Chiudi</button>
@@ -145,26 +148,21 @@
     <div id="admin-dashboard">
         <span class="section-title">👑 Dashboard Creatore</span>
         
-        <!-- Mappa Google Maps -->
+        <!-- Mappa Google Maps Mappa Esatta Giardino Gramsci-Petrarca di fronte PalaSesto -->
         <div class="map-container">
             <iframe width="100%" height="100%" frameborder="0" style="border:0"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d44743.08447814917!2d9.1800!3d45.5300!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4786c905e94b29f7%3A0x8671603ba5ef7922!2sParco%20Nord%20Milano!5e0!3m2!1sit!2sit!4v1680000000000!5m2!1sit!2sit" allowfullscreen>
+                src="https://maps.google.com/maps?q=45.5413,9.2323&t=&z=17&ie=UTF8&iwloc=&output=embed" allowfullscreen>
             </iframe>
         </div>
 
-        <!-- Conteggio Cani Presenti -->
         <div class="stat-box">
-            <div>Cani Presenti Ora nell'Area:</div>
+            <div>Cani Presenti Ora (Area A / Area B):</div>
             <div class="stat-number" id="active-dogs-count">1</div>
         </div>
 
-        <!-- Segnalazioni Ricevute -->
         <span class="section-title">📨 Segnalazioni Ricevute:</span>
-        <div id="reports-list">
-            <!-- Popolato via JS -->
-        </div>
+        <div id="reports-list"></div>
 
-        <!-- Rispondi a un Padrone -->
         <span class="section-title">✏️ Invia Risposta a un Padrone:</span>
         <select id="reply-target-dog">
             <option value="Luna">Destinatario: Cane Luna</option>
@@ -179,7 +177,7 @@
     <!-- SCHEDA INFORMATIVA IN BASSO -->
     <div class="info-footer">
         <div class="info-grid">
-            <div class="info-item"><strong>Area Cani:</strong> <span>Parco Nord - Zona 1</span></div>
+            <div class="info-item"><strong>Area Cani:</strong> <span id="info-park-name">Area cani A - Sesto FS</span></div>
             <div class="info-item"><strong>Giorno:</strong> <span id="info-day">-</span></div>
             <div class="info-item"><strong>Data e Ora:</strong> <span id="info-datetime">-</span></div>
             <div class="info-item"><strong>Meteo:</strong> <span>☀️ Soleggiato / 24°C</span></div>
@@ -194,10 +192,16 @@
     let existingNames = ["Luna", "Milo", "Rocky", "Jack"];
     
     let reports = [
-        { id: 1, dog: "Luna", text: "La fontanella perde acqua all'ingresso." },
-        { id: 2, dog: "Rocky", text: "Il cancello principale non chiude bene." }
+        { id: 1, dog: "Luna", text: "La fontanella nell'Area A perde acqua." },
+        { id: 2, dog: "Rocky", text: "Il cancello dell'Area B non chiude bene." }
     ];
     let pendingReplies = {};
+
+    function updateSelectedArea() {
+        const areaName = document.getElementById('selected-area').value;
+        const shortName = areaName.split('(')[0].trim();
+        document.getElementById('info-park-name').textContent = shortName;
+    }
 
     function updateDateTime() {
         const now = new Date();

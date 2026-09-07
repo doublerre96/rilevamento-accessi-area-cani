@@ -123,15 +123,16 @@
 
         <hr style="margin: 15px 0; border: 0; border-top: 1px solid #e2e8f0;">
 
-        <span class="section-title">🔒 Accesso Creatore</span>
-        <button class="btn btn-admin" onclick="showAdminLoginForm()">Accedi come Creatore</button>
+        <!-- BOTTONE ACCESSO RISERVATO AGGIORNATO -->
+        <span class="section-title">🔒 Area Amministratore</span>
+        <button class="btn btn-admin" onclick="showAdminLoginForm()">Accesso Riservato</button>
         <button class="btn btn-secondary" onclick="closeSettings()">Chiudi</button>
     </div>
 
     <!-- VISTA LOGIN CREATORE -->
     <div id="admin-login-screen">
-        <span class="section-title">👑 Login Amministratore / Creatore</span>
-        <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Inserisci le tue credenziali riservate per accedere al pannello di controllo.</p>
+        <span class="section-title">🔒 Accesso Riservato Creatore</span>
+        <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Inserisci le tue credenziali per accedere alla dashboard.</p>
         
         <input type="text" id="admin-user-input" placeholder="Nome Utente">
         <input type="password" id="admin-pass-input" placeholder="Password">
@@ -238,7 +239,6 @@
         closeSettings();
     }
 
-    // Mostra la form di Login Admin
     function showAdminLoginForm() {
         document.getElementById('settings-modal').style.display = 'none';
         document.getElementById('admin-login-screen').style.display = 'block';
@@ -249,7 +249,6 @@
         document.getElementById('settings-modal').style.display = 'block';
     }
 
-    // Controllo Nome e Password Admin
     function validateAdminLogin() {
         const user = document.getElementById('admin-user-input').value.trim();
         const pass = document.getElementById('admin-pass-input').value.trim();

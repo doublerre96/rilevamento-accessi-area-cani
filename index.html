@@ -6,50 +6,92 @@
     <title>Check-in Area Cani Sesto FS</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-        body { background-color: #f0f4f8; display: flex; justify-content: center; padding: 15px; }
-        .card { background: #ffffff; width: 100%; max-width: 440px; border-radius: 20px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); position: relative; }
         
-        .header-park { text-align: center; border-bottom: 2px solid #f0f4f8; padding-bottom: 12px; margin-bottom: 15px; position: relative; }
-        .park-title { font-size: 18px; color: #1e293b; font-weight: bold; padding-right: 30px; }
-        .settings-btn { position: absolute; right: 0; top: 0; font-size: 22px; cursor: pointer; background: none; border: none; padding: 5px; }
+        /* SFONDO CARTONE ANIMATO E OVERLAY VIOLA/LILLA */
+        body { 
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(56, 189, 248, 0.4)), 
+                        url('https://img.freepik.com/free-vector/happy-dogs-playing-park-illustration_1308-164478.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px; 
+        }
+
+        /* CARD PRINCIPALE SU TONI LILLA E VIOLA */
+        .card { 
+            background: rgba(255, 255, 255, 0.96); 
+            width: 100%; 
+            max-width: 440px; 
+            border-radius: 24px; 
+            padding: 22px; 
+            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.25); 
+            position: relative;
+            backdrop-filter: blur(8px);
+            border: 2px solid #ddd6fe;
+        }
         
-        .section-title { font-size: 14px; font-weight: bold; color: #475569; margin: 12px 0 8px 0; display: block; }
+        .header-park { text-align: center; border-bottom: 2px solid #e0e7ff; padding-bottom: 12px; margin-bottom: 15px; position: relative; }
+        .park-title { font-size: 19px; color: #5b21b6; font-weight: 800; padding-right: 30px; }
+        .settings-btn { position: absolute; right: 0; top: -5px; font-size: 24px; cursor: pointer; background: none; border: none; }
         
+        .section-title { font-size: 13px; font-weight: bold; color: #6d28d9; margin: 10px 0 6px 0; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        /* SELEZIONE OPZIONI (VIOLA & LILLA) */
         .options-group { display: flex; gap: 10px; margin-bottom: 12px; }
         .option-btn { flex: 1; text-align: center; }
         .option-btn input { display: none; }
-        .option-btn label { display: block; padding: 10px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; color: #334155; }
-        .option-btn input:checked + label { background: #e0e7ff; border-color: #6366f1; color: #4338ca; }
+        .option-btn label { display: block; padding: 10px; background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 12px; font-size: 13px; font-weight: 600; cursor: pointer; color: #5b21b6; }
+        .option-btn input:checked + label { background: #7c3aed; border-color: #6d28d9; color: #ffffff; }
 
-        .checkbox-card { display: flex; align-items: center; gap: 10px; background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px 12px; border-radius: 10px; margin-bottom: 8px; cursor: pointer; }
-        .checkbox-card input { width: 18px; height: 18px; accent-color: #6366f1; }
-        .checkbox-card span { font-size: 13px; color: #334155; font-weight: 500; }
+        .checkbox-card { display: flex; align-items: center; gap: 10px; background: #f0f9ff; border: 1px solid #bae6fd; padding: 10px 12px; border-radius: 10px; margin-bottom: 8px; cursor: pointer; }
+        .checkbox-card input { width: 18px; height: 18px; accent-color: #7c3aed; }
+        .checkbox-card span { font-size: 13px; color: #0369a1; font-weight: 500; }
 
-        input[type="number"], input[type="text"], input[type="password"], textarea, select { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 14px; background: #f8fafc; margin-bottom: 12px; }
+        input[type="number"], input[type="text"], input[type="password"], textarea, select { width: 100%; padding: 11px; border-radius: 10px; border: 1px solid #c4b5fd; font-size: 14px; background: #f5f3ff; margin-bottom: 12px; color: #4c1d95; }
         textarea { resize: vertical; min-height: 80px; }
 
-        .btn { background-color: #22c55e; color: white; border: none; width: 100%; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 10px; }
-        .btn-danger { background-color: #ef4444; }
-        .btn-secondary { background-color: #64748b; margin-top: 8px; }
-        .btn-admin { background-color: #6366f1; color: white; }
+        /* RETTANGOLO SEGNALAZIONI (BLU CHIARO) */
+        .area-box-highlight {
+            background: #e0f2fe;
+            border: 2px dashed #0284c7;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: bold;
+            color: #0369a1;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
 
-        #account-modal, #timer-screen, #settings-modal, #admin-login-screen, #admin-dashboard, #notification-bubble { display: none; }
-        .timer-display { font-size: 44px; font-weight: bold; color: #1e293b; margin: 15px 0; background: #f8fafc; padding: 10px; border-radius: 12px; border: 2px dashed #22c55e; text-align: center; }
+        /* PULSANTI (VERDE, VIOLA & BLU) */
+        .btn { background-color: #10b981; color: white; border: none; width: 100%; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+        .btn-danger { background-color: #ef4444; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3); }
+        .btn-secondary { background-color: #8b5cf6; margin-top: 8px; color: white; }
+        .btn-admin { background-color: #0284c7; color: white; }
 
-        .user-badge { background: #e0e7ff; color: #4338ca; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
+        #account-modal, #timer-screen, #settings-modal, #admin-login-screen, #admin-dashboard, #notification-bubble, #geo-status { display: none; }
+        
+        .timer-display { font-size: 44px; font-weight: bold; color: #4c1d95; margin: 15px 0; background: #f5f3ff; padding: 10px; border-radius: 12px; border: 2px dashed #10b981; text-align: center; }
 
-        .speech-bubble { background: #0284c7; color: white; padding: 12px 15px; border-radius: 15px; margin-bottom: 15px; cursor: pointer; text-align: center; font-weight: 600; font-size: 13px; position: relative; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); }
-        .speech-bubble::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); border-width: 8px 8px 0; border-style: solid; border-color: #0284c7 transparent; }
+        .user-badge { background: #ddd6fe; color: #5b21b6; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
 
-        .stat-box { background: #f1f5f9; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 15px; border: 1px solid #e2e8f0; }
-        .stat-number { font-size: 28px; font-weight: bold; color: #4338ca; }
-        .map-container { width: 100%; height: 210px; border-radius: 12px; overflow: hidden; margin-bottom: 15px; border: 1px solid #cbd5e1; }
-        .report-item { background: #f8fafc; border: 1px solid #e2e8f0; padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 12px; }
+        /* NUVOLETTA SEGNALAZIONI (LILLA & VIOLA) */
+        .speech-bubble { background: #7c3aed; color: white; padding: 12px 15px; border-radius: 15px; margin-bottom: 15px; cursor: pointer; text-align: center; font-weight: 600; font-size: 13px; position: relative; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3); }
 
-        .info-footer { background-color: #f8fafc; border-top: 1px solid #e2e8f0; margin-top: 20px; padding-top: 15px; border-radius: 10px; }
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; color: #64748b; }
-        .info-item { background: #ffffff; padding: 8px; border-radius: 6px; border: 1px solid #f1f5f9; }
-        .info-item strong { color: #334155; display: block; margin-bottom: 2px; }
+        .stat-box { background: #f5f3ff; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 15px; border: 1px solid #ddd6fe; color: #4c1d95; }
+        .stat-number { font-size: 28px; font-weight: bold; color: #7c3aed; }
+        .map-container { width: 100%; height: 210px; border-radius: 12px; overflow: hidden; margin-bottom: 15px; border: 2px solid #bae6fd; }
+        .report-item { background: #f0f9ff; border: 1px solid #bae6fd; padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 12px; color: #0369a1; }
+
+        /* FOOTER (BLU CHIARO & LILLA) */
+        .info-footer { background-color: #f5f3ff; border-top: 2px solid #ddd6fe; margin-top: 20px; padding-top: 15px; border-radius: 12px; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; color: #6d28d9; }
+        .info-item { background: #ffffff; padding: 8px; border-radius: 6px; border: 1px solid #e0e7ff; }
+        .info-item strong { color: #4c1d95; display: block; margin-bottom: 2px; }
+        
+        .geo-loading { font-size: 12px; color: #0284c7; text-align: center; margin-bottom: 10px; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -63,11 +105,8 @@
 
     <!-- VISTA 1: DETTAGLI CANE -->
     <div id="checkin-screen">
-        <span class="section-title">Seleziona Area Cani:</span>
-        <select id="selected-area" onchange="updateSelectedArea()">
-            <option value="Area cani A - Sesto FS (Sud / PalaSesto)">Area cani A - Sesto FS (Sud / PalaSesto)</option>
-            <option value="Area cani B - Sesto FS (Nord / Via Ariosto)">Area cani B - Sesto FS (Nord / Via Ariosto)</option>
-        </select>
+        
+        <div id="geo-status" class="geo-loading">📡 Rilevamento Posizione GPS in corso (10s)...</div>
 
         <span class="section-title">1. Sesso del cane:</span>
         <div class="options-group">
@@ -95,7 +134,7 @@
     <!-- VISTA 2: CREAZIONE PROFILO / CREDENZIALI PADRONE -->
     <div id="account-modal">
         <span class="section-title">Crea o Accedi al Profilo:</span>
-        <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Inserisci il nome del cane e la password per registrare l'accesso.</p>
+        <p style="font-size: 12px; color: #6d28d9; margin-bottom: 12px;">Inserisci il nome del cane e la password per registrare l'accesso.</p>
         
         <input type="text" id="dog-name-input" placeholder="Nome del cane (es. Luna)">
         <input type="password" id="dog-password-input" placeholder="Password">
@@ -111,7 +150,7 @@
 
         <div style="text-align: center;">
             <span class="user-badge" id="active-dog-name">🐶 Nome Cane</span>
-            <p style="font-size: 14px; color: #64748b;">Slot attivo - Tempo rimanente:</p>
+            <p style="font-size: 14px; color: #6d28d9;">Slot attivo - Tempo rimanente:</p>
             <div class="timer-display" id="timer">15:00</div>
         </div>
         <button class="btn btn-danger" onclick="endSession()">Segnala Uscita</button>
@@ -121,11 +160,19 @@
     <div id="settings-modal">
         <span class="section-title">⚙️ Impostazioni & Supporto</span>
         
-        <p style="font-size: 12px; color: #64748b; margin-top: 8px;">Invia una segnalazione al creatore:</p>
-        <textarea id="feedback-text" placeholder="Scrivi qui il tuo messaggio o la segnalazione guasti..."></textarea>
+        <p style="font-size: 12px; color: #6d28d9; margin-top: 8px; margin-bottom: 6px;">Area Cani oggetto della segnalazione:</p>
+        
+        <!-- RETTANGOLO AREA CANI SEGNALATA -->
+        <div class="area-box-highlight" id="report-area-name">
+            Area cani A - Sesto FS (Rilevata da GPS)
+        </div>
+
+        <p style="font-size: 12px; color: #6d28d9; margin-bottom: 6px;">Spiega cosa vuoi segnalare:</p>
+        <textarea id="feedback-text" placeholder="Descrivi qui il guasto o la segnalazione..."></textarea>
+        
         <button class="btn" onclick="sendFeedback()">Invia al Creatore</button>
 
-        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #e2e8f0;">
+        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd6fe;">
 
         <span class="section-title">🔒 Area Amministratore</span>
         <button class="btn btn-admin" onclick="showAdminLoginForm()">Accesso Riservato</button>
@@ -135,7 +182,7 @@
     <!-- VISTA LOGIN CREATORE -->
     <div id="admin-login-screen">
         <span class="section-title">🔒 Accesso Riservato Creatore</span>
-        <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Inserisci le tue credenziali per accedere alla dashboard.</p>
+        <p style="font-size: 12px; color: #6d28d9; margin-bottom: 12px;">Inserisci le tue credenziali per accedere alla dashboard.</p>
         
         <input type="text" id="admin-user-input" placeholder="Nome Utente">
         <input type="password" id="admin-pass-input" placeholder="Password">
@@ -150,13 +197,13 @@
         
         <!-- Mappa Google Maps Mappa Esatta Giardino Gramsci-Petrarca di fronte PalaSesto -->
         <div class="map-container">
-            <iframe width="100%" height="100%" frameborder="0" style="border:0"
+            <iframe id="admin-map-iframe" width="100%" height="100%" frameborder="0" style="border:0"
                 src="https://maps.google.com/maps?q=45.5413,9.2323&t=&z=17&ie=UTF8&iwloc=&output=embed" allowfullscreen>
             </iframe>
         </div>
 
         <div class="stat-box">
-            <div>Cani Presenti Ora (Area A / Area B):</div>
+            <div>Cani Presenti Ora nell'Area Rilevata:</div>
             <div class="stat-number" id="active-dogs-count">1</div>
         </div>
 
@@ -177,7 +224,7 @@
     <!-- SCHEDA INFORMATIVA IN BASSO -->
     <div class="info-footer">
         <div class="info-grid">
-            <div class="info-item"><strong>Area Cani:</strong> <span id="info-park-name">Area cani A - Sesto FS</span></div>
+            <div class="info-item"><strong>Area Cani:</strong> <span id="info-park-name">Rilevamento GPS in corso...</span></div>
             <div class="info-item"><strong>Giorno:</strong> <span id="info-day">-</span></div>
             <div class="info-item"><strong>Data e Ora:</strong> <span id="info-datetime">-</span></div>
             <div class="info-item"><strong>Meteo:</strong> <span>☀️ Soleggiato / 24°C</span></div>
@@ -190,18 +237,50 @@
     let countdown;
     const SLOT_DURATION = 15 * 60;
     let existingNames = ["Luna", "Milo", "Rocky", "Jack"];
+    let detectedAreaName = "Area cani A - Sesto FS";
     
     let reports = [
-        { id: 1, dog: "Luna", text: "La fontanella nell'Area A perde acqua." },
-        { id: 2, dog: "Rocky", text: "Il cancello dell'Area B non chiude bene." }
+        { id: 1, dog: "Luna", area: "Area cani A - Sesto FS", text: "La fontanella perde acqua." },
+        { id: 2, dog: "Rocky", area: "Area cani B - Sesto FS", text: "Il cancello principale non chiude bene." }
     ];
     let pendingReplies = {};
 
-    function updateSelectedArea() {
-        const areaName = document.getElementById('selected-area').value;
-        const shortName = areaName.split('(')[0].trim();
-        document.getElementById('info-park-name').textContent = shortName;
+    function requestGeolocation() {
+        const geoStatus = document.getElementById('geo-status');
+        geoStatus.style.display = 'block';
+
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+
+                if (lat > 45.5415) {
+                    detectedAreaName = "Area cani B - Sesto FS (Nord)";
+                } else {
+                    detectedAreaName = "Area cani A - Sesto FS (Sud / PalaSesto)";
+                }
+
+                document.getElementById('info-park-name').textContent = detectedAreaName;
+                document.getElementById('report-area-name').textContent = detectedAreaName;
+                document.getElementById('admin-map-iframe').src = `https://maps.google.com/maps?q=${lat},${lon}&t=&z=17&ie=UTF8&iwloc=&output=embed`;
+
+                geoStatus.textContent = "✅ Posizione rilevata con successo!";
+                setTimeout(() => { geoStatus.style.display = 'none'; }, 2000);
+            }, (error) => {
+                detectedAreaName = "Area cani A - Sesto FS (Predefinita)";
+                document.getElementById('info-park-name').textContent = detectedAreaName;
+                document.getElementById('report-area-name').textContent = detectedAreaName;
+                geoStatus.textContent = "⚠️ GPS non disponibile. Impostata area predefinita.";
+                setTimeout(() => { geoStatus.style.display = 'none'; }, 2000);
+            }, { timeout: 10000 });
+        } else {
+            detectedAreaName = "Area cani A - Sesto FS";
+            document.getElementById('info-park-name').textContent = detectedAreaName;
+            geoStatus.style.display = 'none';
+        }
     }
+
+    requestGeolocation();
 
     function updateDateTime() {
         const now = new Date();
@@ -237,7 +316,7 @@
             alert("Inserisci un messaggio prima di inviare.");
             return;
         }
-        reports.push({ id: Date.now(), dog: currentDog, text: text });
+        reports.push({ id: Date.now(), dog: currentDog, area: detectedAreaName, text: text });
         alert("Messaggio inviato con successo al creatore!");
         document.getElementById('feedback-text').value = '';
         closeSettings();
@@ -263,7 +342,7 @@
             document.getElementById('admin-pass-input').value = '';
             openAdminDashboard();
         } else {
-            alert("Credenziali errate! Verifica il Nome Utente e la Password.");
+            alert("Credenziali errate! Verifica Nome Utente e Password.");
         }
     }
 
@@ -274,7 +353,7 @@
         const listDiv = document.getElementById('reports-list');
         listDiv.innerHTML = "";
         reports.forEach(r => {
-            listDiv.innerHTML += `<div class="report-item"><b>🐶 ${r.dog}:</b> "${r.text}"</div>`;
+            listDiv.innerHTML += `<div class="report-item"><b>📍 ${r.area}</b><br><b>🐶 ${r.dog}:</b> "${r.text}"</div>`;
         });
     }
 

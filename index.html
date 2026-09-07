@@ -7,7 +7,7 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
         
-        /* SFONDO DINAMICO CON CAMBIO RAZZA CANE */
+        /* SFONDO DINAMICO CARTONE ANIMATO */
         body { 
             background-color: #1e1b4b;
             background-repeat: no-repeat;
@@ -207,7 +207,6 @@
         <div id="reports-list"></div>
 
         <span class="section-title">✏️ Invia Risposta a un Padrone:</span>
-        <!-- La lista si aggiorna in automatico con tutti i cani -->
         <select id="reply-target-dog">
             <!-- Popolato dinamicamente da JS -->
         </select>
@@ -241,22 +240,22 @@
     ];
     let pendingReplies = {};
 
-    // ROTAZIONE SFONDI RAZZE CANI CARTONE ANIMATO (OGNI 60 SECONDI)
-    const dogBreedBackgrounds = [
-        "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1000&q=80", // Beagle
-        "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=1000&q=80", // Golden Retriever
-        "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=1000&q=80", // French Bulldog
-        "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=1000&q=80", // Corgi
-        "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=1000&q=80"  // Pastore Tedesco
+    // ILLUSTRAZIONI CARTOON SIMPATICHE DI CANI NEL PARCO (CAMBIO OGNI 60 SECONDI)
+    const cartoonDogBackgrounds = [
+        "https://img.freepik.com/free-vector/happy-dogs-playing-park-illustration_1308-164478.jpg",
+        "https://img.freepik.com/free-vector/cute-dogs-group-park-scene_1308-128224.jpg",
+        "https://img.freepik.com/free-vector/funny-pets-playing-outdoor-park_1308-132101.jpg",
+        "https://img.freepik.com/free-vector/group-cute-dogs-cartoon-illustration_1308-125430.jpg",
+        "https://img.freepik.com/free-vector/dog-breed-characters-park-landscape_1308-133502.jpg"
     ];
 
     let currentBgIndex = 0;
     function changeDogBackground() {
-        document.body.style.backgroundImage = `linear-gradient(135deg, rgba(124, 58, 237, 0.45), rgba(56, 189, 248, 0.45)), url('${dogBreedBackgrounds[currentBgIndex]}')`;
-        currentBgIndex = (currentBgIndex + 1) % dogBreedBackgrounds.length;
+        document.body.style.backgroundImage = `linear-gradient(135deg, rgba(124, 58, 237, 0.45), rgba(56, 189, 248, 0.45)), url('${cartoonDogBackgrounds[currentBgIndex]}')`;
+        currentBgIndex = (currentBgIndex + 1) % cartoonDogBackgrounds.length;
     }
     changeDogBackground();
-    setInterval(changeDogBackground, 60000); // Cambia ogni 60 secondi (1 minuto)
+    setInterval(changeDogBackground, 60000); // Cambia ogni minuto (60 secondi)
 
     function requestGeolocation() {
         const geoStatus = document.getElementById('geo-status');
@@ -366,14 +365,12 @@
         document.getElementById('admin-dashboard').style.display = 'block';
         document.getElementById('active-dogs-count').textContent = countdown ? "1" : "0";
         
-        // Popola la lista delle segnalazioni
         const listDiv = document.getElementById('reports-list');
         listDiv.innerHTML = "";
         reports.forEach(r => {
             listDiv.innerHTML += `<div class="report-item"><b>📍 ${r.area}</b><br><b>🐶 ${r.dog}:</b> "${r.text}"</div>`;
         });
 
-        // POPOLA DINAMICAMENTE IL MENU A TENDINA CON TUTTI I CANI REGISTRATI
         const selectTarget = document.getElementById('reply-target-dog');
         selectTarget.innerHTML = "";
         registeredDogNames.forEach(dogName => {

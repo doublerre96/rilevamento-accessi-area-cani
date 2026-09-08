@@ -23,39 +23,25 @@
             overflow-x: hidden;
         }
 
-        /* SFONDO ANIMATO CANI MARVEL CARTOON */
         #bg-marvel-dogs {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0;
-            opacity: 0.35;
-            pointer-events: none;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 0; opacity: 0.35; pointer-events: none;
         }
 
         .card { 
             background: rgba(255, 255, 255, 0.96); 
-            width: 100%; 
-            max-width: 440px; 
-            border-radius: 24px; 
-            padding: 22px; 
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); 
-            position: relative;
-            z-index: 10;
-            backdrop-filter: blur(10px);
-            border: 2px solid #a855f7;
+            width: 100%; max-width: 460px; border-radius: 24px; padding: 22px; 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); position: relative; z-index: 10;
+            backdrop-filter: blur(10px); border: 2px solid #a855f7;
         }
         
         .header-park { text-align: center; border-bottom: 2px solid #e9d5ff; padding-bottom: 12px; margin-bottom: 15px; position: relative; }
         .park-title { font-size: 19px; color: #6b21a8; font-weight: 800; padding-right: 35px; }
         
-        .settings-btn { 
-            position: absolute; right: 0; top: -2px; font-size: 26px; cursor: pointer; background: none; border: none; z-index: 20;
-        }
+        .settings-btn { position: absolute; right: 0; top: -2px; font-size: 26px; cursor: pointer; background: none; border: none; z-index: 20; }
         
-        .section-title { font-size: 13px; font-weight: bold; color: #7e22ce; margin: 10px 0 6px 0; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
+        .section-title { font-size: 13px; font-weight: bold; color: #7e22ce; margin: 12px 0 6px 0; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
         
         .options-group { display: flex; gap: 10px; margin-bottom: 12px; }
         .option-btn { flex: 1; text-align: center; }
@@ -70,16 +56,16 @@
         input[type="number"], input[type="text"], input[type="password"], textarea, select { width: 100%; padding: 11px; border-radius: 10px; border: 1px solid #c084fc; font-size: 14px; background: #faf5ff; margin-bottom: 12px; color: #581c87; }
         textarea { resize: vertical; min-height: 70px; }
 
-        .btn { background-color: #10b981; color: white; border: none; width: 100%; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+        .btn { background-color: #10b981; color: white; border: none; width: 100%; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 8px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
         .btn-large { font-size: 18px; padding: 18px; background-color: #9333ea; }
         .btn-warning { background-color: #f59e0b; }
         .btn-danger { background-color: #ef4444; }
-        .btn-secondary { background-color: #a855f7; margin-top: 8px; color: white; }
+        .btn-secondary { background-color: #a855f7; color: white; }
         .btn-admin { background-color: #0284c7; color: white; }
 
         .btn-forgot-pass { background: none; border: none; color: #9333ea; font-size: 12px; font-weight: 600; text-decoration: underline; cursor: pointer; width: 100%; text-align: center; margin-top: 8px; display: block; }
 
-        #profile-screen, #timer-screen, #settings-modal, #admin-login-screen, #admin-dashboard, #notification-bubble, #extend-box, #send-report-box { display: none; }
+        #profile-screen, #timer-screen, #settings-modal, #admin-login-screen, #admin-dashboard, #admin-area-detail, #notification-bubble, #extend-box, #send-report-box { display: none; }
         
         .timer-display { font-size: 44px; font-weight: bold; color: #581c87; margin: 15px 0; background: #faf5ff; padding: 10px; border-radius: 12px; border: 2px dashed #10b981; text-align: center; }
         .user-badge { background: #e9d5ff; color: #6b21a8; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
@@ -89,20 +75,24 @@
 
         .stat-box { background: #faf5ff; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 12px; border: 1px solid #e9d5ff; color: #581c87; }
         .stat-number { font-size: 28px; font-weight: bold; color: #9333ea; }
-        .map-container { width: 100%; height: 180px; border-radius: 12px; overflow: hidden; margin-bottom: 15px; border: 2px solid #bae6fd; }
-        
-        /* RIQUADRO SCORREVOLE PER ULTIME 2 SEGNALAZIONI */
-        .reports-two-items-box {
-            max-height: 125px;
-            overflow-y: auto;
-            border: 2px solid #c084fc;
+
+        /* NUMERO FOSFORESCENTE PRESENZE */
+        .neon-badge {
+            background-color: #0f172a;
+            color: #22c55e;
+            font-weight: 900;
+            padding: 3px 8px;
             border-radius: 12px;
-            padding: 8px;
-            background: #faf5ff;
-            margin-top: 8px;
-            margin-bottom: 12px;
+            box-shadow: 0 0 8px #22c55e;
+            font-size: 13px;
+        }
+        
+        .reports-two-items-box {
+            max-height: 150px; overflow-y: auto; border: 2px solid #c084fc;
+            border-radius: 12px; padding: 8px; background: #faf5ff; margin-top: 8px; margin-bottom: 12px;
         }
         .report-item { background: #ffffff; border: 1px solid #bae6fd; padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; font-size: 12px; color: #0369a1; }
+        .reply-item { background: #f0fdf4; border: 1px solid #86efac; padding: 6px 10px; border-radius: 8px; margin-top: 4px; font-size: 11px; color: #166534; }
 
         .info-footer { background-color: #faf5ff; border-top: 2px solid #e9d5ff; margin-top: 20px; padding-top: 15px; border-radius: 12px; }
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; color: #7e22ce; }
@@ -113,36 +103,21 @@
 </head>
 <body>
 
-<!-- SFONDO SVG CANI SUPEREROI MARVEL STYLE -->
 <svg id="bg-marvel-dogs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800">
-    <!-- Super Dog 1 (Con Mantello Rosso) -->
     <g transform="translate(100, 150) scale(1.2)">
-        <!-- Mantello -->
         <path d="M 40 40 Q 10 90 0 120 L 70 110 Z" fill="#ef4444" />
-        <!-- Corpo -->
         <ellipse cx="60" cy="60" rx="30" ry="20" fill="#f59e0b" />
         <circle cx="85" cy="45" r="18" fill="#f59e0b" />
-        <!-- Maschera Marvel -->
         <path d="M 70 40 Q 85 30 100 40 Q 95 52 85 52 Z" fill="#1e293b" />
-        <circle cx="78" cy="42" r="3" fill="#ffffff" />
-        <circle cx="92" cy="42" r="3" fill="#ffffff" />
-        <!-- Zampe in Volo -->
+        <circle cx="78" cy="42" r="3" fill="#ffffff" /><circle cx="92" cy="42" r="3" fill="#ffffff" />
         <path d="M 45 75 L 20 95 M 65 75 L 50 100 M 80 65 L 105 75" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
     </g>
-
-    <!-- Super Dog 2 (Corgi Eroe) -->
     <g transform="translate(650, 450) scale(1.3)">
-        <!-- Mantello Blu -->
         <path d="M 30 35 Q 0 80 -10 100 L 50 90 Z" fill="#0284c7" />
-        <!-- Corpo -->
         <ellipse cx="50" cy="50" rx="28" ry="18" fill="#fb923c" />
         <circle cx="75" cy="35" r="16" fill="#fb923c" />
-        <!-- Orecchie grandi -->
-        <polygon points="65,25 70,-5 80,20" fill="#ea580c" />
-        <polygon points="80,20 90,-5 95,25" fill="#ea580c" />
-        <!-- Maschera -->
+        <polygon points="65,25 70,-5 80,20" fill="#ea580c" /><polygon points="80,20 90,-5 95,25" fill="#ea580c" />
         <path d="M 62 32 Q 75 22 88 32 Q 80 42 72 42 Z" fill="#1e293b" />
-        <!-- Zampe -->
         <path d="M 35 65 L 15 85 M 55 65 L 40 90 M 70 55 L 90 65" stroke="#fb923c" stroke-width="6" stroke-linecap="round"/>
     </g>
 </svg>
@@ -150,22 +125,23 @@
 <div class="card">
     
     <div class="header-park">
-        <!-- TESTO INTESTAZIONE DINAMICO -->
         <div class="park-title" id="park-name-header">🐾 Area Cani</div>
         <button class="settings-btn" onclick="openSettings()" title="Impostazioni & Admin">⚙️</button>
     </div>
 
-    <!-- VISTA 1: BENVERNUTO (HOME) -->
+    <!-- VISTA 1: HOMEPAGE CON ACCESSO DIRECT ADMIN -->
     <div id="welcome-screen" style="display: block;">
         <div style="text-align: center;">
             <p style="font-size: 14px; color: #7e22ce; margin-bottom: 15px;">Inquadra il QR Code sul posto ed entra nello slot di monitoraggio.</p>
             <button class="btn btn-large" onclick="handleWelcomeEntry()">🐾 ENTRA NELL'AREA CANI</button>
             <div id="geo-status" class="geo-loading">📡 Verifica posizione GPS in corso (5s)...</div>
+            
+            <!-- TASTO DIRETTAMENTE IN HOMEPAGE PER CREATORE -->
+            <button class="btn btn-admin" onclick="showAdminLoginForm()" style="margin-top: 12px; font-size: 13px;">🔑 ACCESSO RISERVATO CREATORE</button>
         </div>
 
         <hr style="margin: 20px 0; border: 0; border-top: 2px dashed #c084fc;">
 
-        <!-- SEZIONE RICERCA AREE CANI PRIMA DELLO SCANNER -->
         <span class="section-title">🔍 Cerca e Consulta Aree Cani:</span>
         <select id="area-selector-home" onchange="renderHomeAreaDetails()">
             <option value="Area cani A - PalaSesto (Sud)">Area cani A - PalaSesto (Sud)</option>
@@ -181,7 +157,7 @@
         <div id="home-area-dogs-list"></div>
     </div>
 
-    <!-- VISTA 2: ACCESSO / REGISTRAZIONE PROFILO CANE -->
+    <!-- VISTA 2: ACCESSO / REGISTRAZIONE UTENTE -->
     <div id="profile-screen">
         <span class="section-title">Accedi o Crea Profilo:</span>
         <input type="text" id="dog-name-input" placeholder="Nome del cane (es. Luna)">
@@ -212,7 +188,7 @@
         <button class="btn-forgot-pass" onclick="resetDogProfile()">Password dimenticata? Ricrea Profilo</button>
     </div>
 
-    <!-- VISTA 3: TIMER ATTIVO E NUOVE SEGNALAZIONI IN BASSO -->
+    <!-- VISTA 3: TIMER ATTIVO UTENTE -->
     <div id="timer-screen">
         <div id="notification-bubble" class="speech-bubble" onclick="showAdminReply()">
             💬 Hai 1 nuova risposta dal Creatore! Clicca qui per leggerla.
@@ -224,7 +200,6 @@
             <div class="timer-display" id="timer">15:00</div>
         </div>
 
-        <!-- AVVISO SCADENZA A 2 MINUTI -->
         <div id="extend-box" style="text-align: center; background: #fffbe3; border: 2px dashed #f59e0b; padding: 10px; border-radius: 12px; margin-bottom: 10px;">
             <p style="font-size: 12px; color: #b45309; font-weight: bold;">⚠️ Манcano 2 minuti alla fine dello slot!</p>
             <button class="btn btn-warning" onclick="extendSlotTime()" style="margin-top: 5px;">➕ Prolunga di 10 minuti</button>
@@ -234,7 +209,6 @@
 
         <hr style="margin: 15px 0; border: 0; border-top: 1px dashed #c084fc;">
 
-        <!-- BOTTONE E RIQUADRO SEGNALAZIONI IN BASSO AL TIMER -->
         <button class="btn btn-secondary" onclick="toggleSendReportBox()">📝 Invia una Segnalazione</button>
 
         <div id="send-report-box" style="margin-top: 10px;">
@@ -243,11 +217,10 @@
         </div>
 
         <span class="section-title" style="margin-top: 12px;">📨 Ultime Segnalazioni (Scorri per le altre):</span>
-        <!-- BOX SCORREVOLE MOSTRA ULTIME 2 SEGNALAZIONI -->
         <div class="reports-two-items-box" id="timer-reports-list"></div>
     </div>
 
-    <!-- MENU INGRANAGGIO / SOLO ADMIN -->
+    <!-- MENU INGRANAGGIO IMPOSTAZIONI -->
     <div id="settings-modal">
         <span class="section-title">⚙️ Gestione Amministratore</span>
         <button class="btn btn-admin" onclick="showAdminLoginForm()">Accesso Riservato Creatore</button>
@@ -257,7 +230,7 @@
     <!-- VISTA LOGIN CREATORE -->
     <div id="admin-login-screen">
         <span class="section-title">🔒 Accesso Riservato Creatore</span>
-        <p style="font-size: 12px; color: #7e22ce; margin-bottom: 12px;">Inserisci le tue credenziali per accedere alla dashboard.</p>
+        <p style="font-size: 12px; color: #7e22ce; margin-bottom: 12px;">Inserisci le credenziali del Creatore per accedere.</p>
         
         <input type="text" id="admin-user-input" placeholder="Nome Utente">
         <input type="password" id="admin-pass-input" placeholder="Password">
@@ -266,30 +239,51 @@
         <button class="btn btn-secondary" onclick="closeAdminLoginForm()">Annulla</button>
     </div>
 
-    <!-- DASHBOARD CREATORE / ADMIN -->
+    <!-- VISTA 4A: DASHBOARD CREATORE GENERALE -->
     <div id="admin-dashboard">
-        <span class="section-title">👑 Dashboard Creatore</span>
-        
-        <div class="map-container">
-            <iframe id="admin-map-iframe" width="100%" height="100%" frameborder="0" style="border:0"
-                src="https://maps.google.com/maps?q=45.5413,9.2323&t=&z=17&ie=UTF8&iwloc=&output=embed" allowfullscreen>
-            </iframe>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span class="section-title" style="margin: 0;">👑 Dashboard Creatore</span>
+            <button class="btn btn-danger" onclick="closeAdminDashboard()" style="width: auto; padding: 6px 12px; font-size: 12px; margin: 0;">🚪 Esci</button>
         </div>
 
-        <div class="stat-box">
-            <div>Cani Presenti Totali nel Cloud:</div>
-            <div class="stat-number" id="active-dogs-count">0</div>
-        </div>
+        <!-- MENU AREE CANI CON BADGE FOSFORESCENTE -->
+        <span class="section-title">🏢 Seleziona un'Area Cani da Gestire:</span>
+        <select id="admin-area-select" onchange="openAdminAreaDetail(this.value)">
+            <option value="">-- Clicca e scegli un'Area Cani --</option> <!-- Opzioni generate via JS con badge neon -->
+        </select>
 
-        <span class="section-title">📨 Tutte le Segnalazioni Ricevute:</span>
-        <div class="reports-two-items-box" style="max-height: 160px;" id="reports-list-admin"></div>
+        <span class="section-title">📨 Nuove Segnalazioni In Arrivo:</span>
+        <div class="reports-two-items-box" id="admin-new-reports-list"></div>
 
-        <span class="section-title">✏️ Invia Risposta a un Padrone:</span>
+        <span class="section-title">📜 Storico Domande e Risposte Inviate:</span>
+        <div class="reports-two-items-box" id="admin-history-reports-list"></div>
+
+        <span class="section-title">✏️ Rispondi a un Padrone Presente:</span>
         <select id="reply-target-dog"></select>
         <textarea id="reply-message-text" placeholder="Scrivi la risposta che il padrone vedrà al suo ritorno..."></textarea>
         <button class="btn btn-admin" onclick="sendReplyToUser()">Invia Risposta Cloud</button>
+    </div>
 
-        <button class="btn btn-secondary" onclick="closeAdminDashboard()">Esci da Admin</button>
+    <!-- VISTA 4B: DASHBOARD DEDICATA A SINGOLA AREA CANI -->
+    <div id="admin-area-detail">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <button class="btn btn-secondary" onclick="backToMainAdminDashboard()" style="width: auto; padding: 6px 12px; font-size: 12px; margin: 0;">⬅️ Torna alla Dashboard</button>
+            <button class="btn btn-danger" onclick="closeAdminDashboard()" style="width: auto; padding: 6px 12px; font-size: 12px; margin: 0;">🚪 Esci</button>
+        </div>
+
+        <div class="area-box-highlight" id="admin-selected-area-title" style="background:#e0f2fe; border: 2px dashed #0284c7; padding: 10px; border-radius: 12px; font-weight: bold; color: #0369a1; text-align: center; margin-bottom: 12px;">Area Selezionata</div>
+
+        <span class="section-title">🐶 Cani Presenti Ora e Tempo Rimanente:</span>
+        <div id="admin-area-active-dogs-list"></div>
+
+        <span class="section-title">📨 Segnalazioni filtrate per quest'area:</span>
+        <div class="reports-two-items-box" id="admin-area-filtered-reports"></div>
+
+        <span class="section-title">📜 Storico Domande e Risposte dell'Area:</span>
+        <div class="reports-two-items-box" id="admin-area-filtered-history"></div>
+
+        <span class="section-title">📊 Storico Cani Ultimo Mese (Data, Ora e Durata):</span>
+        <div class="reports-two-items-box" style="max-height: 140px;" id="admin-area-dogs-history-month"></div>
     </div>
 
     <!-- SCHEDA INFORMATIVA IN BASSO -->
@@ -325,8 +319,15 @@
     let detectedAreaName = "Area cani A - PalaSesto (Sud)";
     let activeDogName = "";
     let cloudActiveDogs = {};
+    let cloudReports = {};
+    let cloudReplies = {};
+    let currentDetailArea = "";
 
-    // 1. ENTRA NELL'AREA CANI (5 SECONDI GPS)
+    const availableAreas = [
+        "Area cani A - PalaSesto (Sud)",
+        "Area cani B - Via Ariosto (Nord)"
+    ];
+
     function handleWelcomeEntry() {
         const geoStatus = document.getElementById('geo-status');
         geoStatus.style.display = 'block';
@@ -335,21 +336,13 @@
             navigator.geolocation.getCurrentPosition((position) => {
                 const lat = position.coords.latitude;
                 detectedAreaName = lat > 45.5415 ? "Area cani B - Via Ariosto (Nord)" : "Area cani A - PalaSesto (Sud)";
-                
                 document.getElementById('info-park-name').textContent = detectedAreaName;
-                
                 geoStatus.textContent = "✅ Posizione verificata!";
-                setTimeout(() => { 
-                    geoStatus.style.display = 'none';
-                    proceedToProfile();
-                }, 1200);
+                setTimeout(() => { geoStatus.style.display = 'none'; proceedToProfile(); }, 1200);
             }, () => {
                 document.getElementById('info-park-name').textContent = detectedAreaName;
                 geoStatus.textContent = "⚠️ GPS non attivo. Impostata Area A.";
-                setTimeout(() => { 
-                    geoStatus.style.display = 'none';
-                    proceedToProfile();
-                }, 1200);
+                setTimeout(() => { geoStatus.style.display = 'none'; proceedToProfile(); }, 1200);
             }, { timeout: 5000 });
         } else {
             proceedToProfile();
@@ -359,11 +352,8 @@
     function proceedToProfile() {
         document.getElementById('welcome-screen').style.display = 'none';
         const savedName = localStorage.getItem('dogName');
-        if (savedName) {
-            startTimer(savedName);
-        } else {
-            document.getElementById('profile-screen').style.display = 'block';
-        }
+        if (savedName) { startTimer(savedName); } 
+        else { document.getElementById('profile-screen').style.display = 'block'; }
     }
 
     function saveProfileAndStart() {
@@ -376,14 +366,12 @@
         startTimer(inputName);
     }
 
-    // 2. AVVIO TIMER E CAMBIO SCRITTA INTESTAZIONE CITTA'
     function startTimer(dogName) {
         activeDogName = dogName;
         document.getElementById('profile-screen').style.display = 'none';
         document.getElementById('welcome-screen').style.display = 'none';
         document.getElementById('timer-screen').style.display = 'block';
         
-        // AGGIORNA TITOLO CON CITTA' NEL TIMER
         document.getElementById('park-name-header').textContent = "🐾 Area Cani - Sesto San Giovanni";
         document.getElementById('active-dog-name').textContent = `🐶 ${dogName}`;
 
@@ -391,19 +379,20 @@
         if(document.getElementById('alone').checked) trait = "Meglio che stia da solo";
         if(document.getElementById('peaceful').checked) trait = "Convive senza giocare";
 
-        db.ref('active_dogs/' + dogName).set({
-            name: dogName,
-            area: detectedAreaName,
+        const now = Date.now();
+        const dogData = {
+            name: dogName, area: detectedAreaName,
             gender: document.querySelector('input[name="gender"]:checked').value,
             age: document.getElementById('dog-age').value || 2,
-            trait: trait,
-            timestamp: Date.now()
-        });
+            trait: trait, timestamp: now
+        };
+
+        db.ref('active_dogs/' + dogName).set(dogData);
+        // Registra nello storico mensile
+        db.ref('monthly_history').push({ ...dogData, dateString: new Date().toLocaleString('it-IT') });
 
         db.ref('replies/' + dogName).once('value', (snapshot) => {
-            if (snapshot.exists()) {
-                document.getElementById('notification-bubble').style.display = 'block';
-            }
+            if (snapshot.exists()) { document.getElementById('notification-bubble').style.display = 'block'; }
         });
 
         slotTimeLeft = 15 * 60;
@@ -447,27 +436,38 @@
         document.getElementById('send-report-box').style.display = 'none';
     }
 
-    // 3. ASCOLTO TEMPO REALE CLOUD FIREBASE
+    // ASCOLTO FIREBASE CANI ATTIVI
     db.ref('active_dogs').on('value', (snapshot) => {
         cloudActiveDogs = snapshot.val() || {};
         const now = Date.now();
-        let totalCount = 0;
         let adminOptions = "";
+
+        // Calcola conteggio per area per il badge neon nella tendina admin
+        let areaCounts = {};
+        availableAreas.forEach(a => areaCounts[a] = 0);
 
         Object.keys(cloudActiveDogs).forEach(key => {
             const dog = cloudActiveDogs[key];
             if (now - dog.timestamp < 25 * 60 * 1000) {
-                totalCount++;
+                if (areaCounts[dog.area] !== undefined) areaCounts[dog.area]++;
                 adminOptions += `<option value="${dog.name}">Destinatario: Cane ${dog.name}</option>`;
             } else {
                 db.ref('active_dogs/' + key).remove();
             }
         });
 
-        document.getElementById('active-dogs-count').textContent = totalCount;
+        // POPOLA MENU ADMIN CON BADGE FOSFORESCENTE
+        const adminSelect = document.getElementById('admin-area-select');
+        adminSelect.innerHTML = '<option value="">-- Clicca e scegli un\'Area Cani --</option>';
+        availableAreas.forEach(area => {
+            const count = areaCounts[area] || 0;
+            adminSelect.innerHTML += `<option value="${area}">${area} --- 🟢 [ ${count} Cani ]</option>`;
+        });
+
         document.getElementById('reply-target-dog').innerHTML = adminOptions || '<option value="">Nessun cane presente</option>';
         
         renderHomeAreaDetails();
+        if (currentDetailArea) renderAreaDetailView(currentDetailArea);
     });
 
     function renderHomeAreaDetails() {
@@ -495,22 +495,143 @@
         }
     }
 
-    // MOSTRA SEGNALAZIONI IN BASSO E NELL'ADMIN
+    // ASCOLTO FIREBASE SEGNALAZIONI E RISPOSTE
     db.ref('reports').on('value', (snapshot) => {
-        const reportsData = snapshot.val() || {};
+        cloudReports = snapshot.val() || {};
+        renderReportsUI();
+    });
+
+    db.ref('replies').on('value', (snapshot) => {
+        cloudReplies = snapshot.val() || {};
+        renderReportsUI();
+    });
+
+    function renderReportsUI() {
         const timerList = document.getElementById('timer-reports-list');
-        const adminList = document.getElementById('reports-list-admin');
+        const newReportsList = document.getElementById('admin-new-reports-list');
+        const historyReportsList = document.getElementById('admin-history-reports-list');
         
         timerList.innerHTML = "";
-        adminList.innerHTML = "";
+        newReportsList.innerHTML = "";
+        historyReportsList.innerHTML = "";
 
-        Object.keys(reportsData).reverse().forEach(key => {
-            const r = reportsData[key];
-            const html = `<div class="report-item"><b>📍 ${r.area}</b><br><b>🐶 ${r.dog}:</b> "${r.text}"</div>`;
-            timerList.innerHTML += html;
-            adminList.innerHTML += html;
+        Object.keys(cloudReports).reverse().forEach(key => {
+            const r = cloudReports[key];
+            const hasReply = cloudReplies[r.dog];
+
+            const basicHtml = `<div class="report-item"><b>📍 ${r.area}</b><br><b>🐶 ${r.dog}:</b> "${r.text}"</div>`;
+            timerList.innerHTML += basicHtml;
+
+            if (hasReply) {
+                historyReportsList.innerHTML += `
+                    <div class="report-item">
+                        <b>📍 ${r.area}</b><br><b>🐶 Domanda di ${r.dog}:</b> "${r.text}"
+                        <div class="reply-item">💬 <b>Risposta Creatore:</b> "${hasReply.text}"</div>
+                    </div>
+                `;
+            } else {
+                newReportsList.innerHTML += basicHtml;
+            }
         });
-    });
+
+        if (currentDetailArea) renderAreaDetailView(currentDetailArea);
+    }
+
+    // GESTIONE VISTA DEDICATA SINGOLA AREA CANI IN ADMIN
+    function openAdminAreaDetail(areaName) {
+        if (!areaName) return;
+        currentDetailArea = areaName;
+        document.getElementById('admin-dashboard').style.display = 'none';
+        document.getElementById('admin-area-detail').style.display = 'block';
+        document.getElementById('admin-selected-area-title').textContent = areaName;
+
+        renderAreaDetailView(areaName);
+    }
+
+    function renderAreaDetailView(areaName) {
+        const dogsListDiv = document.getElementById('admin-area-active-dogs-list');
+        const filteredReportsDiv = document.getElementById('admin-area-filtered-reports');
+        const filteredHistoryDiv = document.getElementById('admin-area-filtered-history');
+        const monthHistoryDiv = document.getElementById('admin-area-dogs-history-month');
+
+        dogsListDiv.innerHTML = "";
+        filteredReportsDiv.innerHTML = "";
+        filteredHistoryDiv.innerHTML = "";
+        monthHistoryDiv.innerHTML = "";
+
+        const now = Date.now();
+        let foundActive = 0;
+
+        // CANI PRESENTI ORA CON TIMER RIMANENTE
+        Object.keys(cloudActiveDogs).forEach(key => {
+            const dog = cloudActiveDogs[key];
+            if (dog.area === areaName) {
+                foundActive++;
+                const elapsedSec = Math.floor((now - dog.timestamp) / 1000);
+                const remainingSec = Math.max(0, (15 * 60) - elapsedSec);
+                const m = Math.floor(remainingSec / 60);
+                const s = remainingSec % 60;
+
+                dogsListDiv.innerHTML += `
+                    <div class="dog-detail-card">
+                        <b>🐶 ${dog.name}</b> (${dog.gender}, ${dog.age} anni)<br>
+                        <span>Attitudine: <i>${dog.trait}</i></span><br>
+                        <span style="color:#166534; font-weight:bold;">⏱️ Tempo rimanente: ${m}m ${s < 10 ? '0' : ''}${s}s</span>
+                    </div>
+                `;
+            }
+        });
+
+        if (foundActive === 0) {
+            dogsListDiv.innerHTML = "<p style='font-size:12px; color:#7e22ce;'>Nessun cane attualmente presente in quest'area.</p>";
+        }
+
+        // SEGNALAZIONI E STORICO RISPOSTE DELL'AREA
+        Object.keys(cloudReports).reverse().forEach(key => {
+            const r = cloudReports[key];
+            if (r.area === areaName) {
+                const hasReply = cloudReplies[r.dog];
+                if (hasReply) {
+                    filteredHistoryDiv.innerHTML += `
+                        <div class="report-item">
+                            <b>🐶 Domanda di ${r.dog}:</b> "${r.text}"
+                            <div class="reply-item">💬 <b>Risposta Creatore:</b> "${hasReply.text}"</div>
+                        </div>
+                    `;
+                } else {
+                    filteredReportsDiv.innerHTML += `<div class="report-item"><b>🐶 ${r.dog}:</b> "${r.text}"</div>`;
+                }
+            }
+        });
+
+        // STORICO MENSILE CANI DA FIREBASE
+        db.ref('monthly_history').once('value', (snapshot) => {
+            const monthData = snapshot.val() || {};
+            let foundHistory = 0;
+            Object.keys(monthData).reverse().forEach(key => {
+                const item = monthData[key];
+                if (item.area === areaName) {
+                    foundHistory++;
+                    monthHistoryDiv.innerHTML += `
+                        <div class="report-item">
+                            <b>🐶 ${item.name}</b> (${item.gender}, ${item.age} anni)<br>
+                            <span>📅 Ingresso: ${item.dateString}</span><br>
+                            <span>⏱️ Permanenza prevista: 15 Minuti</span>
+                        </div>
+                    `;
+                }
+            });
+            if (foundHistory === 0) {
+                monthHistoryDiv.innerHTML = "<p style='font-size:12px; color:#7e22ce;'>Nessun registro nello storico per quest'area.</p>";
+            }
+        });
+    }
+
+    function backToMainAdminDashboard() {
+        currentDetailArea = "";
+        document.getElementById('admin-area-detail').style.display = 'none';
+        document.getElementById('admin-dashboard').style.display = 'block';
+    }
 
     function updateDateTime() {
         const now = new Date();
@@ -547,7 +668,6 @@
         countdown = null;
         if (activeDogName) { db.ref('active_dogs/' + activeDogName).remove(); }
         
-        // REIMPOSTA TITOLO INIZIALE HOMEPAGE
         document.getElementById('park-name-header').textContent = "🐾 Area Cani";
         document.getElementById('timer-screen').style.display = 'none';
         document.getElementById('welcome-screen').style.display = 'block';
@@ -563,11 +683,11 @@
 
     function openSettings() { document.getElementById('settings-modal').style.display = 'block'; }
     function closeSettings() { document.getElementById('settings-modal').style.display = 'none'; }
-    function showAdminLoginForm() { document.getElementById('settings-modal').style.display = 'none'; document.getElementById('admin-login-screen').style.display = 'block'; }
-    function closeAdminLoginForm() { document.getElementById('admin-login-screen').style.display = 'none'; document.getElementById('settings-modal').style.display = 'block'; }
+    function showAdminLoginForm() { document.getElementById('welcome-screen').style.display = 'none'; document.getElementById('settings-modal').style.display = 'none'; document.getElementById('admin-login-screen').style.display = 'block'; }
+    function closeAdminLoginForm() { document.getElementById('admin-login-screen').style.display = 'none'; document.getElementById('welcome-screen').style.display = 'block'; }
     function validateAdminLogin() { if (document.getElementById('admin-user-input').value.trim() === "ADMIN" && document.getElementById('admin-pass-input').value.trim() === "Admin2026!") { document.getElementById('admin-login-screen').style.display = 'none'; openAdminDashboard(); } else { alert("Credenziali errate!"); } }
     function openAdminDashboard() { document.getElementById('admin-dashboard').style.display = 'block'; }
-    function closeAdminDashboard() { document.getElementById('admin-dashboard').style.display = 'none'; }
+    function closeAdminDashboard() { document.getElementById('admin-dashboard').style.display = 'none'; document.getElementById('admin-area-detail').style.display = 'none'; document.getElementById('welcome-screen').style.display = 'block'; }
     function updateTimerDisplay(seconds) { const m = Math.floor(seconds / 60); const s = seconds % 60; document.getElementById('timer').textContent = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`; }
 </script>
 

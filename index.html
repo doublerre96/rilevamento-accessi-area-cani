@@ -23,7 +23,6 @@
             overflow-x: hidden;
         }
 
-        /* SFONDO DINAMICO HD CANI SUPEREROI CARTOON */
         #bg-marvel-dogs {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -80,22 +79,12 @@
         .stat-box { background: #faf5ff; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 12px; border: 1px solid #e9d5ff; color: #581c87; }
         .stat-number { font-size: 28px; font-weight: bold; color: #9333ea; }
 
-        .neon-badge {
-            background-color: #0f172a;
-            color: #22c55e;
-            font-weight: 900;
-            padding: 3px 8px;
-            border-radius: 12px;
-            box-shadow: 0 0 8px #22c55e;
-            font-size: 13px;
-        }
-        
         .reports-two-items-box {
-            max-height: 150px; overflow-y: auto; border: 2px solid #c084fc;
+            max-height: 160px; overflow-y: auto; border: 2px solid #c084fc;
             border-radius: 12px; padding: 8px; background: #faf5ff; margin-top: 8px; margin-bottom: 12px;
         }
         .report-item { background: #ffffff; border: 1px solid #bae6fd; padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; font-size: 12px; color: #0369a1; }
-        .reply-item { background: #f0fdf4; border: 1px solid #86efac; padding: 6px 10px; border-radius: 8px; margin-top: 4px; font-size: 11px; color: #166534; }
+        .reply-item { background: #f0fdf4; border: 1px solid #86efac; padding: 6px 10px; border-radius: 8px; margin-top: 6px; font-size: 11px; color: #166534; }
 
         .info-footer { background-color: #faf5ff; border-top: 2px solid #e9d5ff; margin-top: 20px; padding-top: 15px; border-radius: 12px; }
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; color: #7e22ce; }
@@ -106,64 +95,45 @@
 </head>
 <body>
 
-<!-- SFONDO VETTORIALE DETTAGLIATO CON CANI MARVEL CARTOON -->
 <svg id="bg-marvel-dogs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
-    <!-- Colline di fondo parco -->
     <path d="M 0 600 Q 300 450 600 550 T 1200 500 L 1200 900 L 0 900 Z" fill="#10b981" opacity="0.3"/>
     <path d="M 0 680 Q 400 580 800 640 T 1200 600 L 1200 900 L 0 900 Z" fill="#059669" opacity="0.4"/>
 
-    <!-- CANE SUPEREROE 1: SUPER-RETRIEVER IN VOLO (Sinistra In Alto) -->
     <g transform="translate(100, 120) rotate(-10) scale(1.1)">
-        <!-- Mantello Fluorescente Viola -->
         <path d="M 40 45 Q -20 80 -40 140 Q 30 110 70 95 Z" fill="#9333ea" />
-        <!-- Corpo e Zampe in Volo -->
         <ellipse cx="70" cy="65" rx="45" ry="25" fill="#f59e0b" />
         <path d="M 105 75 L 140 85 M 95 80 L 125 95 M 35 75 L 0 95 M 25 75 L -10 85" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
-        <!-- Testa -->
         <circle cx="105" cy="45" r="26" fill="#f59e0b" />
-        <!-- Orecchie al Vento -->
         <path d="M 90 30 Q 60 10 50 35 Q 80 40 90 35 Z" fill="#d97706" />
-        <!-- Maschera Marvel Style Verde Neon -->
         <path d="M 90 40 Q 110 28 125 42 Q 115 58 100 56 Z" fill="#22c55e" />
         <circle cx="98" cy="44" r="4" fill="#ffffff" /><circle cx="99" cy="44" r="2" fill="#000000" />
         <circle cx="114" cy="45" r="4" fill="#ffffff" /><circle cx="115" cy="45" r="2" fill="#000000" />
-        <!-- Muso e Lingua -->
         <ellipse cx="122" cy="55" rx="10" ry="7" fill="#fef3c7" />
         <circle cx="126" cy="52" r="3.5" fill="#000" />
         <path d="M 120 58 Q 124 68 128 58 Z" fill="#ef4444" />
     </g>
 
-    <!-- CANE SUPEREROE 2: CORGI CON MASCHERA (Destra In Basso) -->
     <g transform="translate(820, 520) scale(1.2)">
-        <!-- Mantello Blu Elettrico -->
         <path d="M 20 40 Q -40 70 -50 120 Q 10 100 50 85 Z" fill="#0284c7" />
-        <!-- Corpo -->
         <ellipse cx="55" cy="60" rx="38" ry="24" fill="#fb923c" />
-        <!-- Zampe Corde -->
         <rect x="30" y="75" width="10" height="28" rx="5" fill="#ea580c" />
         <rect x="65" y="75" width="10" height="28" rx="5" fill="#ea580c" />
-        <!-- Testa e Orecchie Grandi -->
         <circle cx="85" cy="40" r="24" fill="#fb923c" />
         <polygon points="70,25 78,-10 90,20" fill="#ea580c" />
         <polygon points="88,20 100,-10 105,25" fill="#ea580c" />
-        <!-- Maschera Nera Marvel -->
         <path d="M 72 36 Q 88 24 104 36 Q 96 50 84 48 Z" fill="#0f172a" />
         <circle cx="80" cy="38" r="4" fill="#ffffff" /><circle cx="81" cy="38" r="2" fill="#000" />
         <circle cx="96" cy="38" r="4" fill="#ffffff" /><circle cx="97" cy="38" r="2" fill="#000" />
-        <!-- Musetto -->
         <ellipse cx="98" cy="48" rx="8" ry="6" fill="#fff" />
         <circle cx="101" cy="46" r="3" fill="#000" />
     </g>
 
-    <!-- CANE SUPEREROE 3: BULLDOG CON MANTEL LILLA (Basso Sinistra) -->
     <g transform="translate(150, 620) scale(1.0)">
         <path d="M 20 30 Q -30 60 -40 100 Q 10 90 40 75 Z" fill="#a855f7" />
         <ellipse cx="50" cy="50" rx="35" ry="25" fill="#94a3b8" />
         <circle cx="75" cy="35" r="25" fill="#94a3b8" />
-        <!-- Orecchie Piegate -->
-        <circle cx="60" cy="18" r="8" fill="#64748b" />
-        <circle cx="88" cy="18" r="8" fill="#64748b" />
-        <!-- Maschera Verde -->
+        <circle cx="60" cy="18" r="8" fill="#64748b" opacity="0.8" />
+        <circle cx="88" cy="18" r="8" fill="#64748b" opacity="0.8" />
         <path d="M 60 30 Q 75 20 90 30 Q 82 42 70 42 Z" fill="#10b981" />
         <circle cx="67" cy="32" r="3" fill="#fff" /><circle cx="82" cy="32" r="3" fill="#fff" />
         <rect x="30" y="68" width="12" height="22" rx="5" fill="#64748b" />
@@ -305,8 +275,8 @@
         <span class="section-title">📜 Storico Domande e Risposte Inviate:</span>
         <div class="reports-two-items-box" id="admin-history-reports-list"></div>
 
-        <span class="section-title">✏️ Rispondi a un Padrone Presente:</span>
-        <select id="reply-target-dog"></select>
+        <span class="section-title">✏️ Rispondi a una Segnalazione:</span>
+        <select id="reply-target-report"></select>
         <textarea id="reply-message-text" placeholder="Scrivi la risposta che il padrone vedrà al suo ritorno..."></textarea>
         <button class="btn btn-admin" onclick="sendReplyToUser()">Invia Risposta Cloud</button>
     </div>
@@ -367,7 +337,6 @@
     let activeDogName = "";
     let cloudActiveDogs = {};
     let cloudReports = {};
-    let cloudReplies = {};
     let currentDetailArea = "";
 
     const availableAreas = [
@@ -437,8 +406,16 @@
         db.ref('active_dogs/' + dogName).set(dogData);
         db.ref('monthly_history').push({ ...dogData, dateString: new Date().toLocaleString('it-IT') });
 
-        db.ref('replies/' + dogName).once('value', (snapshot) => {
-            if (snapshot.exists()) { document.getElementById('notification-bubble').style.display = 'block'; }
+        // VERIFICA SE C'È UNA RISPOSTA RIFERITA A QUESTO CANE
+        db.ref('reports').once('value', (snapshot) => {
+            const reports = snapshot.val() || {};
+            let hasUnread = false;
+            Object.keys(reports).forEach(k => {
+                if(reports[k].dog === dogName && reports[k].reply && !reports[k].read) {
+                    hasUnread = true;
+                }
+            });
+            if(hasUnread) { document.getElementById('notification-bubble').style.display = 'block'; }
         });
 
         slotTimeLeft = 15 * 60;
@@ -476,16 +453,21 @@
         const text = document.getElementById('feedback-text-timer').value.trim();
         if (!text) { alert("Inserisci un messaggio prima di inviare."); return; }
         
-        db.ref('reports').push({ dog: activeDogName || "Anonimo", area: detectedAreaName, text: text, timestamp: Date.now() });
+        db.ref('reports').push({ 
+            dog: activeDogName || "Anonimo", 
+            area: detectedAreaName, 
+            text: text, 
+            timestamp: Date.now() 
+        });
         alert("Segnalazione inviata in tempo reale al creatore!");
         document.getElementById('feedback-text-timer').value = '';
         document.getElementById('send-report-box').style.display = 'none';
     }
 
+    // ASCOLTO CANI ATTIVI
     db.ref('active_dogs').on('value', (snapshot) => {
         cloudActiveDogs = snapshot.val() || {};
         const now = Date.now();
-        let adminOptions = "";
 
         let areaCounts = {};
         availableAreas.forEach(a => areaCounts[a] = 0);
@@ -494,7 +476,6 @@
             const dog = cloudActiveDogs[key];
             if (now - dog.timestamp < 25 * 60 * 1000) {
                 if (areaCounts[dog.area] !== undefined) areaCounts[dog.area]++;
-                adminOptions += `<option value="${dog.name}">Destinatario: Cane ${dog.name}</option>`;
             } else {
                 db.ref('active_dogs/' + key).remove();
             }
@@ -507,8 +488,6 @@
             adminSelect.innerHTML += `<option value="${area}">${area} --- 🟢 [ ${count} Cani ]</option>`;
         });
 
-        document.getElementById('reply-target-dog').innerHTML = adminOptions || '<option value="">Nessun cane presente</option>';
-        
         renderHomeAreaDetails();
         if (currentDetailArea) renderAreaDetailView(currentDetailArea);
     });
@@ -538,13 +517,9 @@
         }
     }
 
+    // ASCOLTO SEGNALAZIONI E INTEGRAZIONE RISPOSTE
     db.ref('reports').on('value', (snapshot) => {
         cloudReports = snapshot.val() || {};
-        renderReportsUI();
-    });
-
-    db.ref('replies').on('value', (snapshot) => {
-        cloudReplies = snapshot.val() || {};
         renderReportsUI();
     });
 
@@ -552,31 +527,73 @@
         const timerList = document.getElementById('timer-reports-list');
         const newReportsList = document.getElementById('admin-new-reports-list');
         const historyReportsList = document.getElementById('admin-history-reports-list');
+        const replySelect = document.getElementById('reply-target-report');
         
         timerList.innerHTML = "";
         newReportsList.innerHTML = "";
         historyReportsList.innerHTML = "";
+        replySelect.innerHTML = "";
+
+        let pendingOptions = "";
 
         Object.keys(cloudReports).reverse().forEach(key => {
             const r = cloudReports[key];
-            const hasReply = cloudReplies[r.dog];
 
-            const basicHtml = `<div class="report-item"><b>📍 ${r.area}</b><br><b>🐶 ${r.dog}:</b> "${r.text}"</div>`;
-            timerList.innerHTML += basicHtml;
+            let html = `
+                <div class="report-item">
+                    <b>📍 ${r.area}</b><br><b>🐶 ${r.dog}:</b> "${r.text}"
+            `;
 
-            if (hasReply) {
-                historyReportsList.innerHTML += `
-                    <div class="report-item">
-                        <b>📍 ${r.area}</b><br><b>🐶 Domanda di ${r.dog}:</b> "${r.text}"
-                        <div class="reply-item">💬 <b>Risposta Creatore:</b> "${hasReply.text}"</div>
-                    </div>
-                `;
+            if (r.reply) {
+                html += `<div class="reply-item">💬 <b>Risposta Creatore:</b> "${r.reply}"</div>`;
+                historyReportsList.innerHTML += html + `</div>`;
             } else {
-                newReportsList.innerHTML += basicHtml;
+                newReportsList.innerHTML += html + `</div>`;
+                pendingOptions += `<option value="${key}">Segnalazione di ${r.dog} (${r.area})</option>`;
             }
+
+            timerList.innerHTML += html + `</div>`;
         });
 
+        replySelect.innerHTML = pendingOptions || '<option value="">Nessuna nuova segnalazione da rispondere</option>';
+
         if (currentDetailArea) renderAreaDetailView(currentDetailArea);
+    }
+
+    function sendReplyToUser() {
+        const reportKey = document.getElementById('reply-target-report').value;
+        const replyText = document.getElementById('reply-message-text').value.trim();
+
+        if (!reportKey || !replyText) { alert("Seleziona una segnalazione e scrivi la tua risposta."); return; }
+
+        // SALVA LA RISPOSTA DIRETTAMENTE SULLA SEGNALAZIONE
+        db.ref('reports/' + reportKey).update({
+            reply: replyText,
+            replyTimestamp: Date.now(),
+            read: false
+        });
+
+        alert("Risposta salvata ed integrata nello storico!");
+        document.getElementById('reply-message-text').value = '';
+    }
+
+    function showAdminReply() {
+        db.ref('reports').once('value', (snapshot) => {
+            const reports = snapshot.val() || {};
+            let messages = [];
+
+            Object.keys(reports).forEach(k => {
+                if (reports[k].dog === activeDogName && reports[k].reply) {
+                    messages.push(`• Domanda: "${reports[k].text}"\n  💬 Risposta Creatore: "${reports[k].reply}"`);
+                    db.ref('reports/' + k).update({ read: true });
+                }
+            });
+
+            if (messages.length > 0) {
+                alert(`📩 Risposte dal Creatore per ${activeDogName}:\n\n` + messages.join("\n\n"));
+                document.getElementById('notification-bubble').style.display = 'none';
+            }
+        });
     }
 
     function openAdminAreaDetail(areaName) {
@@ -629,16 +646,15 @@
         Object.keys(cloudReports).reverse().forEach(key => {
             const r = cloudReports[key];
             if (r.area === areaName) {
-                const hasReply = cloudReplies[r.dog];
-                if (hasReply) {
-                    filteredHistoryDiv.innerHTML += `
-                        <div class="report-item">
-                            <b>🐶 Domanda di ${r.dog}:</b> "${r.text}"
-                            <div class="reply-item">💬 <b>Risposta Creatore:</b> "${hasReply.text}"</div>
-                        </div>
-                    `;
+                let html = `
+                    <div class="report-item">
+                        <b>🐶 ${r.dog}:</b> "${r.text}"
+                `;
+                if (r.reply) {
+                    html += `<div class="reply-item">💬 <b>Risposta Creatore:</b> "${r.reply}"</div>`;
+                    filteredHistoryDiv.innerHTML += html + `</div>`;
                 } else {
-                    filteredReportsDiv.innerHTML += `<div class="report-item"><b>🐶 ${r.dog}:</b> "${r.text}"</div>`;
+                    filteredReportsDiv.innerHTML += html + `</div>`;
                 }
             }
         });
@@ -679,27 +695,6 @@
     }
     updateDateTime();
     setInterval(updateDateTime, 1000);
-
-    function sendReplyToUser() {
-        const targetDog = document.getElementById('reply-target-dog').value;
-        const replyText = document.getElementById('reply-message-text').value.trim();
-        if (!replyText || !targetDog) { alert("Seleziona un cane e scrivi una risposta."); return; }
-
-        db.ref('replies/' + targetDog).set({ text: replyText, timestamp: Date.now() });
-        alert(`Risposta salvata per ${targetDog}!`);
-        document.getElementById('reply-message-text').value = '';
-    }
-
-    function showAdminReply() {
-        db.ref('replies/' + activeDogName).once('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                alert(`📩 Messaggio dal Creatore per ${activeDogName}:\n\n"${data.text}"`);
-                document.getElementById('notification-bubble').style.display = 'none';
-                db.ref('replies/' + activeDogName).remove();
-            }
-        });
-    }
 
     function endSession() {
         clearInterval(countdown);

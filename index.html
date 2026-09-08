@@ -84,6 +84,8 @@
             border-radius: 12px; padding: 8px; background: #faf5ff; margin-top: 8px; margin-bottom: 12px;
         }
         .report-item { background: #ffffff; border: 1px solid #bae6fd; padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; font-size: 12px; color: #0369a1; }
+        .report-item-clickable { cursor: pointer; transition: all 0.2s; }
+        .report-item-clickable:hover { background: #f0fdf4; border-color: #10b981; transform: scale(0.99); }
         .reply-item { background: #f0fdf4; border: 1px solid #86efac; padding: 6px 10px; border-radius: 8px; margin-top: 6px; font-size: 11px; color: #166534; }
 
         .info-footer { background-color: #faf5ff; border-top: 2px solid #e9d5ff; margin-top: 20px; padding-top: 15px; border-radius: 12px; }
@@ -269,7 +271,7 @@
             <option value="">-- Clicca e scegli un'Area Cani --</option>
         </select>
 
-        <span class="section-title">📨 Nuove Segnalazioni In Arrivo:</span>
+        <span class="section-title">📨 Nuove Segnalazioni In Arrivo (Clicca per rispondere):</span>
         <div class="reports-two-items-box" id="admin-new-reports-list"></div>
 
         <span class="section-title">📜 Storico Domande e Risposte Inviate:</span>
@@ -277,7 +279,7 @@
 
         <span class="section-title">✏️ Rispondi a una Segnalazione:</span>
         <select id="reply-target-report"></select>
-        <textarea id="reply-message-text" placeholder="Scrivi la risposta che il padrone vedrà al suo ritorno..."></textarea>
+        <textarea id="reply-message-text" placeholder="Scrivi la risposta che il padrone vedrà in tempo reale..."></textarea>
         <button class="btn btn-admin" onclick="sendReplyToUser()">Invia Risposta Cloud</button>
     </div>
 
@@ -406,18 +408,6 @@
         db.ref('active_dogs/' + dogName).set(dogData);
         db.ref('monthly_history').push({ ...dogData, dateString: new Date().toLocaleString('it-IT') });
 
-        // VERIFICA SE C'È UNA RISPOSTA RIFERITA A QUESTO CANE
-        db.ref('reports').once('value', (snapshot) => {
-            const reports = snapshot.val() || {};
-            let hasUnread = false;
-            Object.keys(reports).forEach(k => {
-                if(reports[k].dog === dogName && reports[k].reply && !reports[k].read) {
-                    hasUnread = true;
-                }
-            });
-            if(hasUnread) { document.getElementById('notification-bubble').style.display = 'block'; }
-        });
-
         slotTimeLeft = 15 * 60;
         updateTimerDisplay(slotTimeLeft);
 
@@ -517,11 +507,32 @@
         }
     }
 
-    // ASCOLTO SEGNALAZIONI E INTEGRAZIONE RISPOSTE
+    // ASCOLTO IN TEMPO REALE DELLE SEGNALAZIONI E NOTIFICA ISTANTANEA AL PADRONE
     db.ref('reports').on('value', (snapshot) => {
         cloudReports = snapshot.val() || {};
         renderReportsUI();
+
+        // RILEVAZIONE ISTANTANEA PER L'UTENTE ATTIVO
+        if (activeDogName) {
+            Object.keys(cloudReports).forEach(key => {
+                const r = cloudReports[key];
+                if (r.dog === activeDogName && r.reply && !r.read) {
+                    document.getElementById('notification-bubble').style.display = 'block';
+                    alert(`📩 Messaggio dal Creatore per ${activeDogName}:\n\n"${r.reply}"`);
+                    db.ref('reports/' + key).update({ read: true });
+                }
+            });
+        }
     });
+
+    // SELEZIONA DIRETTAMENTE LA SEGNALAZIONE DALLA LISTA CLICCATA
+    function selectReportForReply(key) {
+        const replySelect = document.getElementById('reply-target-report');
+        replySelect.value = key;
+        const replyTextArea = document.getElementById('reply-message-text');
+        replyTextArea.focus();
+        replyTextArea.scrollIntoView({ behavior: 'smooth' });
+    }
 
     function renderReportsUI() {
         const timerList = document.getElementById('timer-reports-list');
@@ -539,20 +550,27 @@
         Object.keys(cloudReports).reverse().forEach(key => {
             const r = cloudReports[key];
 
-            let html = `
-                <div class="report-item">
-                    <b>📍 ${r.area}</b><br><b>🐶 ${r.dog}:</b> "${r.text}"
-            `;
-
             if (r.reply) {
-                html += `<div class="reply-item">💬 <b>Risposta Creatore:</b> "${r.reply}"</div>`;
-                historyReportsList.innerHTML += html + `</div>`;
+                const historyHtml = `
+                    <div class="report-item">
+                        <b>📍 ${r.area}</b><br><b>🐶 Domanda di ${r.dog}:</b> "${r.text}"
+                        <div class="reply-item">💬 <b>Risposta Creatore:</b> "${r.reply}"</div>
+                    </div>
+                `;
+                historyReportsList.innerHTML += historyHtml;
+                timerList.innerHTML += historyHtml;
             } else {
-                newReportsList.innerHTML += html + `</div>`;
-                pendingOptions += `<option value="${key}">Segnalazione di ${r.dog} (${r.area})</option>`;
+                const clickableHtml = `
+                    <div class="report-item report-item-clickable" onclick="selectReportForReply('${key}')" title="Clicca per rispondere">
+                        <b>📍 ${r.area}</b><br><b>🐶 ${r.dog}:</b> "${r.text}"
+                    </div>
+                `;
+                newReportsList.innerHTML += clickableHtml;
+                timerList.innerHTML += `<div class="report-item"><b>📍 ${r.area}</b><br><b>🐶 ${r.dog}:</b> "${r.text}"</div>`;
+                
+                // ESATTA FORMATTAZIONE RICHIESTA SENZA "CANE"
+                pendingOptions += `<option value="${key}">Destinatario: ${r.dog}</option>`;
             }
-
-            timerList.innerHTML += html + `</div>`;
         });
 
         replySelect.innerHTML = pendingOptions || '<option value="">Nessuna nuova segnalazione da rispondere</option>';
@@ -566,18 +584,18 @@
 
         if (!reportKey || !replyText) { alert("Seleziona una segnalazione e scrivi la tua risposta."); return; }
 
-        // SALVA LA RISPOSTA DIRETTAMENTE SULLA SEGNALAZIONE
         db.ref('reports/' + reportKey).update({
             reply: replyText,
             replyTimestamp: Date.now(),
             read: false
         });
 
-        alert("Risposta salvata ed integrata nello storico!");
+        alert("Risposta inviata al padrone e registrata nello storico!");
         document.getElementById('reply-message-text').value = '';
     }
 
     function showAdminReply() {
+        if (!activeDogName) return;
         db.ref('reports').once('value', (snapshot) => {
             const reports = snapshot.val() || {};
             let messages = [];
@@ -646,15 +664,19 @@
         Object.keys(cloudReports).reverse().forEach(key => {
             const r = cloudReports[key];
             if (r.area === areaName) {
-                let html = `
-                    <div class="report-item">
-                        <b>🐶 ${r.dog}:</b> "${r.text}"
-                `;
                 if (r.reply) {
-                    html += `<div class="reply-item">💬 <b>Risposta Creatore:</b> "${r.reply}"</div>`;
-                    filteredHistoryDiv.innerHTML += html + `</div>`;
+                    filteredHistoryDiv.innerHTML += `
+                        <div class="report-item">
+                            <b>🐶 Domanda di ${r.dog}:</b> "${r.text}"
+                            <div class="reply-item">💬 <b>Risposta Creatore:</b> "${r.reply}"</div>
+                        </div>
+                    `;
                 } else {
-                    filteredReportsDiv.innerHTML += html + `</div>`;
+                    filteredReportsDiv.innerHTML += `
+                        <div class="report-item report-item-clickable" onclick="selectReportForReply('${key}')" title="Clicca per rispondere">
+                            <b>🐶 ${r.dog}:</b> "${r.text}"
+                        </div>
+                    `;
                 }
             }
         });

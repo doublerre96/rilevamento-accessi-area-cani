@@ -5,12 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Area Cani Smart City</title>
     
+    <!-- GOOGLE FONT SIMPATICO E ROTONDETTO -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- FIREBASE SDK v8 -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Fredoka', -apple-system, BlinkMacSystemFont, sans-serif; 
+        }
         
         body { 
             background: #0b0f19;
@@ -40,11 +50,11 @@
         }
         
         .header-park { text-align: center; border-bottom: 2px solid #e9d5ff; padding-bottom: 12px; margin-bottom: 15px; position: relative; }
-        .park-title { font-size: 19px; color: #6b21a8; font-weight: 800; padding-right: 35px; }
+        .park-title { font-size: 21px; color: #6b21a8; font-weight: 700; padding-right: 35px; }
         
         .settings-btn { position: absolute; right: 0; top: -2px; font-size: 26px; cursor: pointer; background: none; border: none; z-index: 20; }
         
-        .section-title { font-size: 13px; font-weight: bold; color: #7e22ce; margin: 12px 0 6px 0; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
+        .section-title { font-size: 14px; font-weight: 600; color: #7e22ce; margin: 12px 0 6px 0; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
         
         .options-group { display: flex; gap: 10px; margin-bottom: 12px; }
         .option-btn { flex: 1; text-align: center; }
@@ -54,12 +64,12 @@
 
         .checkbox-card { display: flex; align-items: center; gap: 10px; background: #f0f9ff; border: 1px solid #bae6fd; padding: 10px 12px; border-radius: 10px; margin-bottom: 8px; cursor: pointer; }
         .checkbox-card input { width: 18px; height: 18px; accent-color: #9333ea; }
-        .checkbox-card span { font-size: 13px; color: #0369a1; font-weight: 500; }
+        .checkbox-card span { font-size: 14px; color: #0369a1; font-weight: 500; }
 
-        input[type="number"], input[type="text"], input[type="password"], textarea, select { width: 100%; padding: 11px; border-radius: 10px; border: 1px solid #c084fc; font-size: 14px; background: #faf5ff; margin-bottom: 12px; color: #581c87; }
+        input[type="number"], input[type="text"], input[type="password"], textarea, select { width: 100%; padding: 11px; border-radius: 12px; border: 1.5px solid #c084fc; font-size: 14px; background: #faf5ff; margin-bottom: 12px; color: #581c87; }
         textarea { resize: vertical; min-height: 70px; }
 
-        .btn { background-color: #10b981; color: white; border: none; width: 100%; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 8px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+        .btn { background-color: #10b981; color: white; border: none; width: 100%; padding: 14px; font-size: 16px; font-weight: 600; border-radius: 14px; cursor: pointer; margin-top: 8px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
         .btn-large { font-size: 18px; padding: 18px; background-color: #9333ea; }
         .btn-warning { background-color: #f59e0b; }
         .btn-danger { background-color: #ef4444; }
@@ -70,28 +80,66 @@
 
         #profile-screen, #timer-screen, #settings-modal, #admin-login-screen, #admin-dashboard, #admin-area-detail, #notification-bubble, #extend-box, #send-report-box { display: none; }
         
-        .timer-display { font-size: 44px; font-weight: bold; color: #581c87; margin: 15px 0; background: #faf5ff; padding: 10px; border-radius: 12px; border: 2px dashed #10b981; text-align: center; }
-        .user-badge { background: #e9d5ff; color: #6b21a8; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
+        .timer-display { font-size: 44px; font-weight: 700; color: #581c87; margin: 15px 0; background: #faf5ff; padding: 10px; border-radius: 14px; border: 2px dashed #10b981; text-align: center; }
+        .user-badge { background: #e9d5ff; color: #6b21a8; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; display: inline-block; margin-bottom: 10px; }
         .speech-bubble { background: #9333ea; color: white; padding: 12px 15px; border-radius: 15px; margin-bottom: 15px; cursor: pointer; text-align: center; font-weight: 600; font-size: 13px; box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3); }
 
-        .dog-detail-card { background: #ffffff; border: 1px solid #bae6fd; padding: 10px; border-radius: 10px; margin-bottom: 8px; font-size: 13px; color: #0369a1; }
+        .dog-detail-card { background: #ffffff; border: 1.5px solid #bae6fd; padding: 12px; border-radius: 14px; margin-bottom: 8px; font-size: 14px; color: #0369a1; }
 
-        .stat-box { background: #faf5ff; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 12px; border: 1px solid #e9d5ff; color: #581c87; }
-        .stat-number { font-size: 28px; font-weight: bold; color: #9333ea; }
+        .stat-box { background: #faf5ff; padding: 12px; border-radius: 14px; text-align: center; margin-bottom: 12px; border: 1.5px solid #e9d5ff; color: #581c87; }
+        .stat-number { font-size: 32px; font-weight: 700; color: #9333ea; }
 
         .reports-two-items-box {
             max-height: 160px; overflow-y: auto; border: 2px solid #c084fc;
-            border-radius: 12px; padding: 8px; background: #faf5ff; margin-top: 8px; margin-bottom: 12px;
+            border-radius: 14px; padding: 8px; background: #faf5ff; margin-top: 8px; margin-bottom: 12px;
         }
-        .report-item { background: #ffffff; border: 1px solid #bae6fd; padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; font-size: 12px; color: #0369a1; }
+        .report-item { background: #ffffff; border: 1px solid #bae6fd; padding: 8px 10px; border-radius: 10px; margin-bottom: 6px; font-size: 13px; color: #0369a1; }
         .report-item-clickable { cursor: pointer; transition: all 0.2s; }
         .report-item-clickable:hover { background: #f0fdf4; border-color: #10b981; transform: scale(0.99); }
-        .reply-item { background: #f0fdf4; border: 1px solid #86efac; padding: 6px 10px; border-radius: 8px; margin-top: 6px; font-size: 11px; color: #166534; }
+        .reply-item { background: #f0fdf4; border: 1px solid #86efac; padding: 6px 10px; border-radius: 8px; margin-top: 6px; font-size: 12px; color: #166534; }
 
-        .info-footer { background-color: #faf5ff; border-top: 2px solid #e9d5ff; margin-top: 20px; padding-top: 15px; border-radius: 12px; }
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; color: #7e22ce; }
-        .info-item { background: #ffffff; padding: 8px; border-radius: 6px; border: 1px solid #f3e8ff; }
-        .info-item strong { color: #581c87; display: block; margin-bottom: 2px; }
+        /* ULTIMO RIQUADRO RE-STYLED CON STICKERS E FUN FONTS */
+        .info-footer { 
+            background: linear-gradient(135deg, #f3e8ff 0%, #e0f2fe 100%); 
+            border: 2px solid #c084fc; 
+            margin-top: 20px; 
+            padding: 14px; 
+            border-radius: 18px; 
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.15);
+        }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 13px; color: #6b21a8; }
+        .info-item { 
+            background: #ffffff; 
+            padding: 10px; 
+            border-radius: 12px; 
+            border: 1px solid #d8b4fe; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .info-item strong { 
+            color: #581c87; 
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px; 
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .info-value { font-weight: 600; color: #0284c7; font-size: 13px; }
+        .weather-badge {
+            background: #fef08a;
+            color: #854d0e;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 2px;
+            width: fit-content;
+        }
         .geo-loading { font-size: 13px; color: #0284c7; text-align: center; margin: 10px 0; font-weight: 600; }
     </style>
 </head>
@@ -153,7 +201,7 @@
     <!-- VISTA 1: HOMEPAGE CON ACCESSO DIRECT ADMIN -->
     <div id="welcome-screen" style="display: block;">
         <div style="text-align: center;">
-            <p style="font-size: 14px; color: #7e22ce; margin-bottom: 15px;">Inquadra il QR Code sul posto ed entra nello slot di monitoraggio.</p>
+            <p style="font-size: 14px; color: #7e22ce; margin-bottom: 15px; font-weight: 500;">Inquadra il QR Code sul posto ed entra nello slot di monitoraggio.</p>
             <button class="btn btn-large" onclick="handleWelcomeEntry()">🐾 ENTRA NELL'AREA CANI</button>
             <div id="geo-status" class="geo-loading">📡 Verifica posizione GPS in corso (5s)...</div>
             
@@ -169,7 +217,7 @@
         </select>
 
         <div class="stat-box">
-            <div>Cani Presenti Ora in quest'Area:</div>
+            <div style="font-weight: 500;">Cani Presenti Ora in quest'Area:</div>
             <div class="stat-number" id="home-area-count">0</div>
         </div>
 
@@ -216,7 +264,7 @@
 
         <div style="text-align: center;">
             <span class="user-badge" id="active-dog-name">🐶 Nome Cane</span>
-            <p style="font-size: 14px; color: #7e22ce;">Slot attivo - Tempo rimanente:</p>
+            <p style="font-size: 14px; color: #7e22ce; font-weight: 500;">Slot attivo - Tempo rimanente:</p>
             <div class="timer-display" id="timer">15:00</div>
         </div>
 
@@ -250,7 +298,7 @@
     <!-- VISTA LOGIN CREATORE -->
     <div id="admin-login-screen">
         <span class="section-title">🔒 Accesso Riservato Creatore</span>
-        <p style="font-size: 12px; color: #7e22ce; margin-bottom: 12px;">Inserisci le credenziali del Creatore per accedere.</p>
+        <p style="font-size: 13px; color: #7e22ce; margin-bottom: 12px;">Inserisci le credenziali del Creatore per accedere.</p>
         
         <input type="text" id="admin-user-input" placeholder="Nome Utente">
         <input type="password" id="admin-pass-input" placeholder="Password">
@@ -305,13 +353,25 @@
         <div class="reports-two-items-box" style="max-height: 140px;" id="admin-area-dogs-history-month"></div>
     </div>
 
-    <!-- SCHEDA INFORMATIVA IN BASSO -->
+    <!-- SCHEDA INFORMATIVA IN BASSO RESTYLED CON STICKERS E NOMI SIMPATICI -->
     <div class="info-footer">
         <div class="info-grid">
-            <div class="info-item"><strong>Area Cani:</strong> <span id="info-park-name">Area cani A</span></div>
-            <div class="info-item"><strong>Giorno:</strong> <span id="info-day">-</span></div>
-            <div class="info-item"><strong>Data e Ora:</strong> <span id="info-datetime">-</span></div>
-            <div class="info-item"><strong>Meteo:</strong> <span>☀️ Soleggiato / 24°C</span></div>
+            <div class="info-item">
+                <strong>📍 Parco Attivo</strong>
+                <span class="info-value" id="info-park-name">Area cani A</span>
+            </div>
+            <div class="info-item">
+                <strong>📅 Giorno</strong>
+                <span class="info-value" id="info-day">-</span>
+            </div>
+            <div class="info-item">
+                <strong>🕒 Data e Ora</strong>
+                <span class="info-value" id="info-datetime">-</span>
+            </div>
+            <div class="info-item">
+                <strong>🌤️ Meteo Parco</strong>
+                <span class="weather-badge">☀️ Sole / 24°C</span>
+            </div>
         </div>
     </div>
 
@@ -454,7 +514,6 @@
         document.getElementById('send-report-box').style.display = 'none';
     }
 
-    // ASCOLTO CANI ATTIVI
     db.ref('active_dogs').on('value', (snapshot) => {
         cloudActiveDogs = snapshot.val() || {};
         const now = Date.now();
@@ -503,16 +562,14 @@
 
         document.getElementById('home-area-count').textContent = areaCount;
         if (areaCount === 0) {
-            listDiv.innerHTML = "<p style='font-size:12px; color:#7e22ce; text-align:center;'>Nessun cane attualmente presente in quest'area.</p>";
+            listDiv.innerHTML = "<p style='font-size:13px; color:#7e22ce; text-align:center;'>Nessun cane attualmente presente in quest'area.</p>";
         }
     }
 
-    // ASCOLTO IN TEMPO REALE DELLE SEGNALAZIONI E NOTIFICA ISTANTANEA AL PADRONE
     db.ref('reports').on('value', (snapshot) => {
         cloudReports = snapshot.val() || {};
         renderReportsUI();
 
-        // RILEVAZIONE ISTANTANEA PER L'UTENTE ATTIVO
         if (activeDogName) {
             Object.keys(cloudReports).forEach(key => {
                 const r = cloudReports[key];
@@ -525,7 +582,6 @@
         }
     });
 
-    // SELEZIONA DIRETTAMENTE LA SEGNALAZIONE DALLA LISTA CLICCATA
     function selectReportForReply(key) {
         const replySelect = document.getElementById('reply-target-report');
         replySelect.value = key;
@@ -568,7 +624,6 @@
                 newReportsList.innerHTML += clickableHtml;
                 timerList.innerHTML += `<div class="report-item"><b>📍 ${r.area}</b><br><b>🐶 ${r.dog}:</b> "${r.text}"</div>`;
                 
-                // ESATTA FORMATTAZIONE RICHIESTA SENZA "CANE"
                 pendingOptions += `<option value="${key}">Destinatario: ${r.dog}</option>`;
             }
         });
@@ -658,7 +713,7 @@
         });
 
         if (foundActive === 0) {
-            dogsListDiv.innerHTML = "<p style='font-size:12px; color:#7e22ce;'>Nessun cane attualmente presente in quest'area.</p>";
+            dogsListDiv.innerHTML = "<p style='font-size:13px; color:#7e22ce;'>Nessun cane attualmente presente in quest'area.</p>";
         }
 
         Object.keys(cloudReports).reverse().forEach(key => {
@@ -698,7 +753,7 @@
                 }
             });
             if (foundHistory === 0) {
-                monthHistoryDiv.innerHTML = "<p style='font-size:12px; color:#7e22ce;'>Nessun registro nello storico per quest'area.</p>";
+                monthHistoryDiv.innerHTML = "<p style='font-size:13px; color:#7e22ce;'>Nessun registro nello storico per quest'area.</p>";
             }
         });
     }
